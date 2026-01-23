@@ -10,14 +10,11 @@ Ansible-managed homelab infrastructure with security-focused VM segmentation.
 | streaming | public-facing apps | jellyfin, jellyseerr |
 | arr | media automation | radarr, sonarr, prowlarr, bazarr |
 | downloader | untrusted traffic (VPN) | qbittorrent |
-| paperless | document management | paperless-ngx, postgres, redis |
 | monitoring | observability | uptime kuma, homepage, speedtest-tracker |
-| rss | read-later/feeds | wallabag, freshrss, postgres |
 
 ## Network Design
 
-- Static IPs: `192.168.1.10-16` (VMs)
-- DHCP range: `192.168.1.20-254` (clients)
+- Static IPs: `192.168.1.109-116` (VMs)
 - Public access: Jellyfin/Jellyseerr via Cloudflare tunnel
 - Admin access: VPN only
 - Downloader VM: Routed through ProtonVPN with kill switch
