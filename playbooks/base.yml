@@ -20,3 +20,6 @@
           - ca-certificates
           - gnupg
         state: present
+
+  roles:
+    - ssh_hardening
