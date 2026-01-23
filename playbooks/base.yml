@@ -19,6 +19,7 @@
           - curl
           - ca-certificates
           - gnupg
+          - vim
         state: present
 
   roles:
