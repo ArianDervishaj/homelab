@@ -14,7 +14,7 @@ Ansible-managed homelab infrastructure with security-focused VM segmentation.
 
 ## Network Design
 
-- Static IPs: `192.168.1.109-116` (VMs)
+- Static IPs: `192.168.100.10-14` (VMs)
 - Public access: Jellyfin/Jellyseerr via Cloudflare tunnel
 - Admin access: VPN only
 - Downloader VM: Routed through ProtonVPN with kill switch

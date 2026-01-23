@@ -1,0 +1,11 @@
+---
+- name: Install common and dev packages
+  ansible.builtin.apt:
+    name:
+      - curl
+      - ca-certificates
+      - gnupg
+      - vim
+      - git
+    state: present
+    update_cache: true

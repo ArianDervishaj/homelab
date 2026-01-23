@@ -3,24 +3,18 @@
   hosts: all
   become: true
 
-  tasks:
-    - name: Update apt cache
+  pre_tasks:
+    - name: Ensure apt cache is up to date
       ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 3600
-
-    - name: Upgrade all packages
-      ansible.builtin.apt:
         upgrade: dist
-
-    - name: Install common packages
-      ansible.builtin.apt:
-        name:
-          - curl
-          - ca-certificates
-          - gnupg
-          - vim
-        state: present
-
   roles:
     - ssh_hardening
+
+- name: Service VM Foundation
+  hosts: all:!router
+  become: true
+  roles:
+    - common_tools
+    - docker
