@@ -1,13 +1,11 @@
-- name: Disable password authentication
+---
+- name: Configure SSH hardening
   ansible.builtin.lineinfile:
     path: /etc/ssh/sshd_config
-    regexp: '^#?PasswordAuthentication'
-    line: 'PasswordAuthentication no'
-  notify: Restart sshd
-
-- name: Disable root login
-  ansible.builtin.lineinfile:
-    path: /etc/ssh/sshd_config
-    regexp: '^#?PermitRootLogin'
-    line: 'PermitRootLogin no'
+    regexp: '^#?{{ item.key }}'
+    line: '{{ item.key }} {{ item.value }}'
+  loop:
+    - { key: 'PasswordAuthentication', value: 'no' }
+    - { key: 'PermitRootLogin', value: 'no' }
+    - { key: 'MaxAuthTries', value: '3' }
   notify: Restart sshd
