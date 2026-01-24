@@ -1,0 +1,16 @@
+---
+docker_compose_stack_name: proxy
+
+docker_compose_services:
+- name: caddy
+  image: caddy:latest
+  container_name: caddy
+  ports:
+  - "80:80"
+  - "443:443"
+  volumes:
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/caddy/Caddyfile:/etc/caddy/Caddyfile:ro"
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/caddy/data:/data"
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/caddy/config:/config"
+  environment:
+    TZ: "{{ timezone }}"
