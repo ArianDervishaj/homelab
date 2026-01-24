@@ -1,0 +1,57 @@
+---
+# Stack: {{ docker_compose_stack_name }}
+
+services:
+{% for service in docker_compose_services %}
+  {{ service.name }}:
+    image: {{ service.image }}
+    container_name: {{ service.container_name | default(service.name) }}
+{% if service.restart is defined %}
+    restart: {{ service.restart }}
+{% else %}
+    restart: unless-stopped
+{% endif %}
+{% if service.ports is defined %}
+    ports:
+{% for port in service.ports %}
+      - "{{ port }}"
+{% endfor %}
+{% endif %}
+{% if service.environment is defined %}
+    environment:
+{% for key, value in service.environment.items() %}
+      {{ key }}: "{{ value }}"
+{% endfor %}
+{% endif %}
+{% if service.volumes is defined %}
+    volumes:
+{% for volume in service.volumes %}
+      - {{ volume }}
+{% endfor %}
+{% endif %}
+{% if service.depends_on is defined %}
+    depends_on:
+{% for dep in service.depends_on %}
+      - {{ dep }}
+{% endfor %}
+{% endif %}
+{% if service.networks is defined %}
+    networks:
+{% for network in service.networks %}
+      - {{ network }}
+{% endfor %}
+{% endif %}
+
+{% endfor %}
+{% if docker_compose_networks is defined %}
+networks:
+{% for network in docker_compose_networks %}
+  {{ network.name }}:
+{% if network.external | default(false) %}
+    external: true
+{% endif %}
+{% if network.driver is defined %}
+    driver: {{ network.driver }}
+{% endif %}
+{% endfor %}
+{% endif %}

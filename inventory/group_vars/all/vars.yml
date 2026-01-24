@@ -1,1 +1,8 @@
 ansible_become_password: "{{ vault_become_password }}"
+
+timezone: "Europe/Zurich"
+
+# Docker user settings
+docker_user: "nuggets"
+docker_uid: "1000"
+docker_gid: "1000"

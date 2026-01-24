@@ -1,0 +1,10 @@
+---
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: Restart docker compose stack
+  ansible.builtin.systemd:
+    name: "{{ docker_compose_stack_name }}"
+    state: restarted
+  when: docker_compose_systemd_enabled

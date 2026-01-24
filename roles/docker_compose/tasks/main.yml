@@ -1,0 +1,56 @@
+---
+- name: Validate required variables
+  ansible.builtin.assert:
+    that:
+      - docker_compose_stack_name is defined
+      - docker_compose_services is defined
+    fail_msg: "docker_compose_stack_name and docker_compose_services must be defined"
+
+- name: Set stack directory path
+  ansible.builtin.set_fact:
+    docker_compose_stack_dir: "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}"
+
+- name: Create stack directory
+  ansible.builtin.file:
+    path: "{{ docker_compose_stack_dir }}"
+    state: directory
+    owner: "{{ docker_compose_owner }}"
+    group: "{{ docker_compose_group }}"
+    mode: "0755"
+
+- name: Create data directories for services
+  ansible.builtin.file:
+    path: "{{ docker_compose_stack_dir }}/{{ item.name }}"
+    state: directory
+    owner: "{{ docker_compose_owner }}"
+    group: "{{ docker_compose_group }}"
+    mode: "0755"
+  loop: "{{ docker_compose_services }}"
+  when: item.volumes is defined
+
+- name: Template docker-compose.yml
+  ansible.builtin.template:
+    src: docker-compose.yml.j2
+    dest: "{{ docker_compose_stack_dir }}/docker-compose.yml"
+    owner: "{{ docker_compose_owner }}"
+    group: "{{ docker_compose_group }}"
+    mode: "0644"
+  notify: Restart docker compose stack
+
+- name: Template systemd service
+  ansible.builtin.template:
+    src: docker-compose.service.j2
+    dest: "/etc/systemd/system/{{ docker_compose_stack_name }}.service"
+    mode: "0644"
+  when: docker_compose_systemd_enabled
+  notify:
+    - Reload systemd
+    - Restart docker compose stack
+
+- name: Enable and start stack service
+  ansible.builtin.systemd:
+    name: "{{ docker_compose_stack_name }}"
+    enabled: true
+    state: started
+    daemon_reload: true
+  when: docker_compose_systemd_enabled

@@ -1,0 +1,9 @@
+---
+# Base directory for all docker compose stacks
+docker_compose_base_dir: /opt/stacks
+
+docker_compose_owner: nuggets
+docker_compose_group: docker
+
+# Whether to create a systemd service for the stack
+docker_compose_systemd_enabled: true
