@@ -24,7 +24,7 @@ docker_compose_services:
     TZ: "{{ timezone }}"
     PUID: "{{ docker_uid }}"
     PGID: "{{ docker_gid }}"
-    HOMEPAGE_ALLOWED_HOSTS: "{{ ansible_host }}:3000"
+    HOMEPAGE_ALLOWED_HOSTS: "{{ ansible_host }}:3000, homepage.lan"
 
 - name: speedtest-tracker
   image: lscr.io/linuxserver/speedtest-tracker:latest
