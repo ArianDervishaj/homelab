@@ -1,0 +1,41 @@
+---
+docker_compose_stack_name: monitoring
+
+docker_compose_services:
+- name: uptime-kuma
+  image: louislam/uptime-kuma:latest
+  container_name: uptime-kuma
+  ports:
+  - "3001:3001"
+  volumes:
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/uptime-kuma:/app/data"
+  environment:
+    TZ: "{{ timezone }}"
+
+- name: homepage
+  image: ghcr.io/gethomepage/homepage:latest
+  container_name: homepage
+  ports:
+  - "3000:3000"
+  volumes:
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/homepage:/app/config"
+  - "/var/run/docker.sock:/var/run/docker.sock:ro"
+  environment:
+    TZ: "{{ timezone }}"
+    PUID: "{{ docker_uid }}"
+    PGID: "{{ docker_gid }}"
+    HOMEPAGE_ALLOWED_HOSTS: "{{ ansible_host }}:3000"
+
+- name: speedtest-tracker
+  image: lscr.io/linuxserver/speedtest-tracker:latest
+  container_name: speedtest-tracker
+  ports:
+  - "8765:80"
+  volumes:
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/speedtest-tracker:/config"
+  environment:
+    TZ: "{{ timezone }}"
+    PUID: "{{ docker_uid }}"
+    PGID: "{{ docker_gid }}"
+    APP_KEY: "{{ vault_speedtest_app_key }}"
+    DB_CONNECTION: "sqlite"

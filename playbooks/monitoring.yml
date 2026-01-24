@@ -1,0 +1,14 @@
+---
+- name: Deploy Monitoring Stack
+  hosts: monitoring
+  become: true
+
+  pre_tasks:
+    - name: Ensure Docker is running
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
+
+  roles:
+    - docker_compose
