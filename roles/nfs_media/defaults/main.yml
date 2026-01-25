@@ -1,0 +1,4 @@
+---
+nfs_media_server: "192.168.1.49"
+nfs_media_share_path: "/tank/media"
+nfs_media_mount_point: "/data"
