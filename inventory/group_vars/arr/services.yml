@@ -1,0 +1,57 @@
+---
+docker_compose_stack_name: arr
+
+docker_compose_services:
+- name: radarr
+  image: linuxserver/radarr:latest
+  container_name: radarr
+  ports:
+  - "7878:7878"
+  volumes:
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/radarr/config:/config"
+  - "/data/media/movies:/movies"
+  - "/data/downloads:/downloads"
+  environment:
+    TZ: "{{ timezone }}"
+    PUID: "{{ docker_uid }}"
+    PGID: "{{ docker_gid }}"
+
+- name: sonarr
+  image: linuxserver/sonarr:latest
+  container_name: sonarr
+  ports:
+  - "8989:8989"
+  volumes:
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/sonarr/config:/config"
+  - "/data/media/tv_shows:/tv"
+  - "/data/downloads:/downloads"
+  environment:
+    TZ: "{{ timezone }}"
+    PUID: "{{ docker_uid }}"
+    PGID: "{{ docker_gid }}"
+
+- name: prowlarr
+  image: linuxserver/prowlarr:latest
+  container_name: prowlarr
+  ports:
+  - "9696:9696"
+  volumes:
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/prowlarr/config:/config"
+  environment:
+    TZ: "{{ timezone }}"
+    PUID: "{{ docker_uid }}"
+    PGID: "{{ docker_gid }}"
+
+- name: bazarr
+  image: linuxserver/bazarr:latest
+  container_name: bazarr
+  ports:
+  - "6767:6767"
+  volumes:
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/bazarr/config:/config"
+  - "/data/media/movies:/movies"
+  - "/data/media/tv_shows:/tv"
+  environment:
+    TZ: "{{ timezone }}"
+    PUID: "{{ docker_uid }}"
+    PGID: "{{ docker_gid }}"
