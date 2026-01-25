@@ -1,0 +1,27 @@
+---
+docker_compose_stack_name: streaming
+
+docker_compose_services:
+- name: jellyfin
+  image: jellyfin/jellyfin:latest
+  container_name: jellyfin
+  ports:
+  - "8096:8096"
+  volumes:
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/jellyfin/config:/config"
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/jellyfin/cache:/cache"
+  - "/data/media/movies:/media/movies"
+  - "/data/media/tv_shows:/media/tv_shows"
+  environment:
+    TZ: "{{ timezone }}"
+
+- name: jellyseerr
+  image: fallenbagel/jellyseerr:latest
+  container_name: jellyseerr
+  ports:
+  - "5055:5055"
+  volumes:
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/jellyseerr/config:/app/config"
+  environment:
+    TZ: "{{ timezone }}"
+    LOG_LEVEL: "info"

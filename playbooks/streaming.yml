@@ -1,0 +1,15 @@
+---
+- name: Deploy Streaming Stack
+  hosts: streaming
+  become: true
+
+  pre_tasks:
+    - name: Ensure Docker is running
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
+
+  roles:
+    - nfs_media
+    - docker_compose
