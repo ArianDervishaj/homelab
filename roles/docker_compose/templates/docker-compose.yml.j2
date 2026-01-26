@@ -11,6 +11,21 @@ services:
 {% else %}
     restart: unless-stopped
 {% endif %}
+{% if service.cap_add is defined %}
+    cap_add:
+{% for cap in service.cap_add %}
+      - {{ cap }}
+{% endfor %}
+{% endif %}
+{% if service.devices is defined %}
+    devices:
+{% for device in service.devices %}
+      - {{ device }}
+{% endfor %}
+{% endif %}
+{% if service.network_mode is defined %}
+    network_mode: "{{ service.network_mode }}"
+{% endif %}
 {% if service.ports is defined %}
     ports:
 {% for port in service.ports %}

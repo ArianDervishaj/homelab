@@ -1,0 +1,39 @@
+---
+docker_compose_stack_name: downloader
+
+docker_compose_services:
+- name: gluetun
+  image: qmcgaw/gluetun:latest
+  container_name: gluetun
+  cap_add:
+  - NET_ADMIN
+  devices:
+  - /dev/net/tun:/dev/net/tun
+  ports:
+  - "8081:8081"
+  - "6881:6881"
+  - "6881:6881/udp"
+  volumes:
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/gluetun:/gluetun"
+  environment:
+    TZ: "{{ timezone }}"
+    VPN_SERVICE_PROVIDER: "protonvpn"
+    VPN_TYPE: "wireguard"
+    WIREGUARD_PRIVATE_KEY: "{{ vault_vpn_wireguard_private_key }}"
+    WIREGUARD_ADDRESSES: "{{ vault_vpn_wireguard_address }}"
+    SERVER_COUNTRIES: "Switzerland"
+
+- name: qbittorrent
+  image: linuxserver/qbittorrent:latest
+  container_name: qbittorrent
+  network_mode: "service:gluetun"
+  volumes:
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/qbittorrent/config:/config"
+  - "/data/downloads:/downloads"
+  environment:
+    TZ: "{{ timezone }}"
+    PUID: "{{ docker_uid }}"
+    PGID: "{{ docker_gid }}"
+    WEBUI_PORT: "8081"
+  depends_on:
+  - gluetun
