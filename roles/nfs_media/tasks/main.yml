@@ -16,5 +16,5 @@
     src: "{{ nfs_media_server }}:{{ nfs_media_share_path }}"
     path: "{{ nfs_media_mount_point }}"
     fstype: nfs
-    opts: defaults,_netdev
+    opts: defaults,_netdev,x-systemd.after=network-online.target
     state: mounted
