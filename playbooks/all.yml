@@ -1,0 +1,20 @@
+---
+# playbooks/all.yml
+
+# noqa: name[play]
+- import_playbook: base.yml
+
+# noqa: name[play]
+- import_playbook: proxy.yml
+
+# noqa: name[play]
+- import_playbook: streaming.yml
+
+# noqa: name[play]
+- import_playbook: arr.yml
+
+# noqa: name[play]
+- import_playbook: downloader.yml
+
+# noqa: name[play]
+- import_playbook: monitoring.yml
