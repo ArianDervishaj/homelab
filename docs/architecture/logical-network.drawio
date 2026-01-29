@@ -1,0 +1,135 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="29.3.6">
+  <diagram name="Page-1" id="jZhG5M2zKTR3hCJGqw8G">
+    <mxGraphModel dx="2428" dy="974" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="190" width="220" x="50" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-3" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Main Network" vertex="1">
+          <mxGeometry height="30" width="80" x="70" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-4" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="192.168.1.0/24" vertex="1">
+          <mxGeometry height="30" width="90" x="160" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="370" width="420" x="650" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-6" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Homelab Subnet" vertex="1">
+          <mxGeometry height="30" width="100" x="690" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-7" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="192.168.100.0/24" vertex="1">
+          <mxGeometry height="30" width="90" x="820" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-8" parent="1" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;fontSize=12;verticalAlign=top;fontColor=#364149;shadow=0;dashed=0;image=img/lib/cumulus/server_bare_metal.svg;" value="Pi-Hole DNS Server&lt;div&gt;192.168.1.225&lt;/div&gt;" vertex="1">
+          <mxGeometry height="20" width="96" x="80" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-11" edge="1" parent="1" source="t2gv57HcOkfyCNSDLg7E-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=classic;startFill=1;" target="t2gv57HcOkfyCNSDLg7E-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-24" connectable="0" parent="t2gv57HcOkfyCNSDLg7E-11" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="192.168.1.1" vertex="1">
+          <mxGeometry relative="1" x="0.05" y="1" as="geometry">
+            <mxPoint y="-14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-9" parent="1" style="fontColor=light-dark(#0066CC,#FFFFFF);verticalAlign=middle;verticalLabelPosition=middle;labelPosition=left;align=right;html=1;outlineConnect=0;fillColor=#CCCCCC;strokeColor=default;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.router;" value="&lt;font&gt;Main Router&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="90" x="-120" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-12" edge="1" parent="1" source="t2gv57HcOkfyCNSDLg7E-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;startArrow=classic;startFill=1;" target="t2gv57HcOkfyCNSDLg7E-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-23" connectable="0" parent="t2gv57HcOkfyCNSDLg7E-12" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="192.168.1.159" vertex="1">
+          <mxGeometry relative="1" x="-0.1714" y="4" as="geometry">
+            <mxPoint y="-19" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-10" parent="1" style="fontColor=light-dark(#0066CC,#FFFFFF);verticalAlign=bottom;verticalLabelPosition=top;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#CCCCCC;strokeColor=default;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.router;" value="&lt;font&gt;VM Router&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="100" x="410" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-13" edge="1" parent="1" source="t2gv57HcOkfyCNSDLg7E-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.007;entryY=0.413;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=classic;startFill=1;" target="t2gv57HcOkfyCNSDLg7E-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-22" connectable="0" parent="t2gv57HcOkfyCNSDLg7E-13" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="192.168.100.1" vertex="1">
+          <mxGeometry relative="1" x="-0.2308" y="3" as="geometry">
+            <mxPoint x="-3" y="-23" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-14" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="(Proxmox Host)" vertex="1">
+          <mxGeometry height="30" width="90" x="940" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-15" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.virtual_machine;" value="Monitoring VM&lt;div&gt;192.168.100.14&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="50" x="840" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-16" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.virtual_machine;" value="Proxy VM&lt;div&gt;192.168.100.10&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="50" x="705" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-17" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.virtual_machine;fontStyle=1" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;Streaming VM&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;192.168.100.11&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="50" x="840" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-19" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.virtual_machine;" value="arr VM&lt;div&gt;192.168.100.12&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="50" x="980" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-20" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.virtual_machine;" value="Downloader VM&lt;div&gt;192.168.100.13&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="50" x="705" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-26" edge="1" parent="1" source="t2gv57HcOkfyCNSDLg7E-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" target="t2gv57HcOkfyCNSDLg7E-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-25" parent="1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=light-dark(#FFFFFF,#FFFFFF);" value="&lt;font style=&quot;color: light-dark(rgb(0, 0, 0), rgb(0, 0, 0));&quot;&gt;Internet&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="120" x="-135" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-27" parent="1" style="shape=mxgraph.networks2.icon;aspect=fixed;fillColor=#EDEDED;strokeColor=#000000;gradientColor=#5B6163;network2IconShadow=1;network2bgFillColor=none;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;network2Icon=mxgraph.networks2.external_storage;network2IconYOffset=-0.0267;network2IconW=1;network2IconH=0.7987;" value="ZFS Pool &#39;tank&#39; 5TB" vertex="1">
+          <mxGeometry height="39.934999999999995" width="50" x="705" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-28" edge="1" parent="1" source="t2gv57HcOkfyCNSDLg7E-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;fontColor=light-dark(#000000,#5BDBFF);strokeColor=light-dark(#000000,#77CFFF);" target="t2gv57HcOkfyCNSDLg7E-20">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="780" y="480" />
+              <mxPoint x="780" y="330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-29" edge="1" parent="1" source="t2gv57HcOkfyCNSDLg7E-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;fontColor=light-dark(#000000,#5BDBFF);strokeColor=light-dark(#000000,#77CFFF);" target="t2gv57HcOkfyCNSDLg7E-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-30" edge="1" parent="1" source="t2gv57HcOkfyCNSDLg7E-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=classic;startFill=1;fontColor=light-dark(#000000,#5BDBFF);strokeColor=light-dark(#000000,#77CFFF);" target="t2gv57HcOkfyCNSDLg7E-19">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="940" y="480" />
+              <mxPoint x="940" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-31" connectable="0" parent="t2gv57HcOkfyCNSDLg7E-30" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=light-dark(#000000,#77CFFF);" value="NFS Share" vertex="1">
+          <mxGeometry relative="1" x="-0.6235" y="1" as="geometry">
+            <mxPoint x="5" y="-9" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-36" edge="1" parent="1" source="t2gv57HcOkfyCNSDLg7E-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;strokeColor=light-dark(#000000,#FF708F);">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-210" y="469" />
+              <mxPoint x="-210" y="154" />
+            </Array>
+            <mxPoint x="-120" y="154" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-34" parent="1" style="sketch=0;verticalLabelPosition=bottom;sketch=0;aspect=fixed;html=1;verticalAlign=top;strokeColor=light-dark(#000000,#FF708F);fillColor=#000000;align=center;outlineConnect=0;pointerEvents=1;shape=mxgraph.citrix2.tunnel;fontColor=light-dark(#000000,#FF708F);" value="Proton VPN (gluten)" vertex="1">
+          <mxGeometry height="17.2" width="80" x="390" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-35" edge="1" parent="1" source="t2gv57HcOkfyCNSDLg7E-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=classic;startFill=1;strokeColor=light-dark(#000000,#FF708F);" target="t2gv57HcOkfyCNSDLg7E-20">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="670" y="469" />
+              <mxPoint x="670" y="330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t2gv57HcOkfyCNSDLg7E-38" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="&lt;div&gt;VM&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;IP&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; Services&lt;/div&gt;&lt;div&gt;─────────────────────────────────────────────────────────────────&lt;/div&gt;&lt;div&gt;Router VM&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;192.168.1.159&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;Gateway, NAT between subnets&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 192.168.100.1&amp;nbsp; &amp;nbsp; &amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Proxy VM&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 192.168.100.10&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; Caddy Reverse Proxy&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Streaming VM&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;192.168.100.11&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; Jellyfin, Jellyseerr&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;arr VM&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;192.168.100.12&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; Radarr, Sonarr, Prowlarr, Bazarr&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Downloader VM&amp;nbsp; &amp;nbsp; &amp;nbsp; 192.168.100.13&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;qBittorrent, gluetun (ProtonVPN)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Monitoring VM&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;192.168.100.14&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; Homepage, Uptime Kuma, Speedtest-tracker&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;ZFS Storage&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;-&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 5TB pool &quot;tank&quot;, NFS shares&lt;/div&gt;" vertex="1">
+          <mxGeometry height="240" width="560" x="40" y="530" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
