@@ -11,6 +11,9 @@ services:
 {% else %}
     restart: unless-stopped
 {% endif %}
+{% if service.command is defined %}
+    command: {{ service.command }}
+{% endif %}
 {% if service.cap_add is defined %}
     cap_add:
 {% for cap in service.cap_add %}

@@ -25,3 +25,9 @@ docker_compose_services:
   environment:
     TZ: "{{ timezone }}"
     LOG_LEVEL: "info"
+
+- name: cloudflared
+  image: cloudflare/cloudflared:latest
+  container_name: cloudflared
+  network_mode: host
+  command: tunnel --no-autoupdate run --token {{ vault_cloudflare_tunnel_token }}
