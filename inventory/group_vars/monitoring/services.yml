@@ -24,7 +24,7 @@ docker_compose_services:
     TZ: "{{ timezone }}"
     PUID: "{{ docker_uid }}"
     PGID: "{{ docker_gid }}"
-    HOMEPAGE_ALLOWED_HOSTS: "{{ ansible_host }}:3000, homepage.lan"
+    HOMEPAGE_ALLOWED_HOSTS: "homepage.lan,{{ ansible_host }}:3000"
 
 - name: speedtest-tracker
   image: lscr.io/linuxserver/speedtest-tracker:latest
@@ -39,3 +39,5 @@ docker_compose_services:
     PGID: "{{ docker_gid }}"
     APP_KEY: "{{ vault_speedtest_app_key }}"
     DB_CONNECTION: "sqlite"
+    SPEEDTEST_SCHEDULE: "0 */6 * * *"
+    DISPLAY_TIMEZONE: "{{ timezone}}"
