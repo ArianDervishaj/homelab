@@ -1,0 +1,6 @@
+---
+firewall_rules:
+- port: 8096
+  comment: "Jellyfin"
+- port: 5055
+  comment: "Jellyseerr"
