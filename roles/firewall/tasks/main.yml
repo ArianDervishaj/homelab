@@ -1,0 +1,72 @@
+---
+- name: Install iptables and persistence
+  ansible.builtin.apt:
+    name:
+      - iptables
+      - iptables-persistent
+    state: present
+  environment:
+    DEBIAN_FRONTEND: noninteractive
+
+- name: Set default INPUT policy to ACCEPT temporarily
+  ansible.builtin.iptables:
+    chain: "INPUT"
+    policy: "ACCEPT"
+  changed_when: false  # This is just a safety measure, not a real change
+
+- name: Flush existing rules
+  ansible.builtin.iptables:
+    chain: "{{ item }}"
+    flush: true
+  loop:
+    - INPUT
+    - OUTPUT
+
+- name: Allow established and related connections
+  ansible.builtin.iptables:
+    chain: INPUT
+    ctstate: ESTABLISHED,RELATED
+    jump: ACCEPT
+
+- name: Allow loopback interface
+  ansible.builtin.iptables:
+    chain: INPUT
+    in_interface: lo
+    jump: ACCEPT
+
+- name: Allow ICMP
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: icmp
+    jump: ACCEPT
+
+- name: Allow SSH
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "22"
+    source: "{{ item }}"
+    jump: ACCEPT
+  loop: "{{ firewall_ssh_allowed_sources }}"
+
+- name: Apply per-host firewall rules
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: "{{ item.protocol | default('tcp') }}"
+    destination_port: "{{ item.port }}"
+    source: "{{ item.source | default(omit) }}"
+    comment: "{{ item.comment }}"
+    jump: ACCEPT
+  loop: "{{ firewall_rules | default([]) }}"
+
+- name: Set default INPUT policy to DROP
+  ansible.builtin.iptables:
+    chain: "INPUT"
+    policy: "DROP"
+  notify: Save iptables rules
+
+- name: Set default OUTPUT policy to ACCEPT
+  ansible.builtin.iptables:
+    chain: OUTPUT
+    policy: ACCEPT
+  notify: Save iptables rules

@@ -1,0 +1,6 @@
+---
+- name: Deploy firewall role
+  hosts: all,!router
+  become: true
+  roles:
+    - firewall

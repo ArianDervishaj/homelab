@@ -1,0 +1,5 @@
+---
+firewall_ssh_allowed_sources:
+  - "{{ network_main_lan }}"
+  - "{{ network_homelab_subnet }}"
+  - "{{ network_netbird }}"
