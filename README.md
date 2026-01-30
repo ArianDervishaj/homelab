@@ -49,6 +49,13 @@ Ansible-managed homelab infrastructure running on Proxmox VE with security-focus
 - **Reverse proxy:** External access only through Caddy
 - **DNS filtering:** Pi-hole for network-wide ad blocking
 
+## Internal DNS (.lan domains)
+
+All services accessible via Pi-hole local DNS:
+- `jellyfin.lan`, `jellyseerr.lan`, `radarr.lan`, `sonarr.lan`
+- `prowlarr.lan`, `bazarr.lan`, `qbittorrent.lan`
+- `homepage.lan`, `uptime.lan`, `speedtest.lan`
+
 ## Project Structure
 ```
 .
