@@ -1,0 +1,44 @@
+---
+firewall_rules:
+- port: 7878
+  source: "{{ network_main_lan }}"
+  comment: "Radarr from main LAN"
+- port: 7878
+  source: "{{ network_netbird }}"
+  comment: "Radarr from Netbird"
+- port: 7878
+  source: "{{ hostvars['proxy-vm']['ansible_host'] }}"
+  comment: "Radarr from proxy"
+- port: 7878
+  source: "{{ hostvars['streaming-vm']['ansible_host'] }}"
+  comment: "Radarr from streaming (Jellyseerr)"
+- port: 8989
+  source: "{{ network_main_lan }}"
+  comment: "Sonarr from main LAN"
+- port: 8989
+  source: "{{ network_netbird }}"
+  comment: "Sonarr from Netbird"
+- port: 8989
+  source: "{{ hostvars['proxy-vm']['ansible_host'] }}"
+  comment: "Sonarr from proxy"
+- port: 8989
+  source: "{{ hostvars['streaming-vm']['ansible_host'] }}"
+  comment: "Sonarr from streaming (Jellyseerr)"
+- port: 9696
+  source: "{{ network_main_lan }}"
+  comment: "Prowlarr from main LAN"
+- port: 9696
+  source: "{{ network_netbird }}"
+  comment: "Prowlarr from Netbird"
+- port: 9696
+  source: "{{ hostvars['proxy-vm']['ansible_host'] }}"
+  comment: "Prowlarr from proxy"
+- port: 6767
+  source: "{{ network_main_lan }}"
+  comment: "Bazarr from main LAN"
+- port: 6767
+  source: "{{ network_netbird }}"
+  comment: "Bazarr from Netbird"
+- port: 6767
+  source: "{{ hostvars['proxy-vm']['ansible_host'] }}"
+  comment: "Bazarr from proxy"
