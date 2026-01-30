@@ -1,0 +1,14 @@
+---
+firewall_rules:
+- port: 80
+  source: "{{ network_main_lan }}"
+  comment: "HTTP from main LAN"
+- port: 80
+  source: "{{ network_netbird }}"
+  comment: "HTTP from Netbird"
+- port: 443
+  source: "{{ network_main_lan }}"
+  comment: "HTTPS from main LAN"
+- port: 443
+  source: "{{ network_netbird }}"
+  comment: "HTTPS from Netbird"
