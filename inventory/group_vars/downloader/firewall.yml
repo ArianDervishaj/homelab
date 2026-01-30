@@ -1,0 +1,14 @@
+---
+firewall_rules:
+- port: 8081
+  source: "{{ hostvars['arr-vm']['ansible_host'] }}"
+  comment: "qBittorrent WebUI from arr"
+- port: 8081
+  source: "{{ hostvars['proxy-vm']['ansible_host'] }}"
+  comment: "qBittorrent WebUI from proxy"
+- port: 8081
+  source: "{{ network_main_lan }}"
+  comment: "qBittorrent WebUI from main LAN"
+- port: 8081
+  source: "{{ network_netbird }}"
+  comment: "qBittorrent WebUI from Netbird"
