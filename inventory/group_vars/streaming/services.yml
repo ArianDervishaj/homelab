@@ -5,6 +5,8 @@ docker_compose_services:
 - name: jellyfin
   image: jellyfin/jellyfin:latest
   container_name: jellyfin
+  devices:
+  - /dev/dri:/dev/dri
   ports:
   - "8096:8096"
   volumes:
