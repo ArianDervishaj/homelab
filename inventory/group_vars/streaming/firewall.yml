@@ -4,3 +4,6 @@ firewall_rules:
   comment: "Jellyfin"
 - port: 5055
   comment: "Jellyseerr"
+- port: 68
+  protocol: udp
+  comment: "DHCP Client"

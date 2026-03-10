@@ -12,3 +12,6 @@ firewall_rules:
 - port: 443
   source: "{{ network_netbird }}"
   comment: "HTTPS from Netbird"
+- port: 68
+  protocol: udp
+  comment: "DHCP Client"

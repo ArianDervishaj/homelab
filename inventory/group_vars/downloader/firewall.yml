@@ -12,3 +12,6 @@ firewall_rules:
 - port: 8081
   source: "{{ network_netbird }}"
   comment: "qBittorrent WebUI from Netbird"
+- port: 68
+  protocol: udp
+  comment: "DHCP Client"

@@ -1,0 +1,14 @@
+dhcp_interface: ens19
+dhcp_range_start: 192.168.100.100
+dhcp_range_end: 192.168.100.200
+dhcp_netmask: 255.255.255.0
+dhcp_lease_time: 12h
+dhcp_gateway: 192.168.100.1
+dhcp_dns: 192.168.1.225
+
+dhcp_static_hosts:
+- { mac: "bc:24:11:c8:5b:a7", name: "proxy", ip: "192.168.100.10" }
+- { mac: "bc:24:11:a4:7c:fc", name: "streaming", ip: "192.168.100.11" }
+- { mac: "bc:24:11:cb:39:f2", name: "arr", ip: "192.168.100.12" }
+- { mac: "bc:24:11:55:8f:88", name: "downloader", ip: "192.168.100.13" }
+- { mac: "bc:24:11:be:02:81", name: "monitoring", ip: "192.168.100.14" }

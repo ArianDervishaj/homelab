@@ -27,3 +27,6 @@ firewall_rules:
 - port: 8765
   source: "{{ hostvars['proxy-vm']['ansible_host'] }}"
   comment: "Speedtest from proxy"
+- port: 68
+  protocol: udp
+  comment: "DHCP Client"

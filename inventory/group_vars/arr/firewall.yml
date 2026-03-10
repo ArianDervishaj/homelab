@@ -42,3 +42,6 @@ firewall_rules:
 - port: 6767
   source: "{{ hostvars['proxy-vm']['ansible_host'] }}"
   comment: "Bazarr from proxy"
+- port: 68
+  protocol: udp
+  comment: "DHCP Client"

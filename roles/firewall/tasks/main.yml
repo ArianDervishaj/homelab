@@ -20,7 +20,6 @@
     flush: true
   loop:
     - INPUT
-    - OUTPUT
 
 - name: Allow established and related connections
   ansible.builtin.iptables:
