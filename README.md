@@ -79,3 +79,4 @@ All services accessible via Pi-hole local DNS:
 - Pi-hole DNS server runs on Raspberry Pi (192.168.1.225), managed separately
 - Infrastructure-as-code approach using Ansible for reproducibility
 - All secrets managed via Ansible Vault
+- DHCP Server on Router
