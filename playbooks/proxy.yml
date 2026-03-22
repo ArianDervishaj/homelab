@@ -1,6 +1,6 @@
 ---
 - name: Deploy Proxy Stack
-  hosts: proxy
+  hosts: proxy.homelab
   become: true
 
   pre_tasks:

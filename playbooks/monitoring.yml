@@ -1,6 +1,6 @@
 ---
 - name: Deploy Monitoring Stack
-  hosts: monitoring
+  hosts: monitoring.homelab
   become: true
 
   pre_tasks:

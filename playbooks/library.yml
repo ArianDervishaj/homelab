@@ -1,6 +1,6 @@
 ---
 - name: Deploy Media/Books Stack
-  hosts: library
+  hosts: library.homelab
   become: true
 
   pre_tasks:

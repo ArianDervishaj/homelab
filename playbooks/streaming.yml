@@ -1,6 +1,6 @@
 ---
 - name: Deploy Streaming Stack
-  hosts: streaming
+  hosts: streaming.homelab
   become: true
 
   pre_tasks:
