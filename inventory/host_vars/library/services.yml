@@ -1,0 +1,30 @@
+---
+docker_compose_stack_name: library
+
+docker_compose_services:
+- name: calibre-web
+  image: linuxserver/calibre-web:latest
+  container_name: calibre-web
+  ports:
+  - "8083:8083"
+  volumes:
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/calibre-web/config:/config"
+  - "/data/media/books:/books"
+  environment:
+    TZ: "{{ timezone }}"
+    PUID: "{{ docker_uid }}"
+    PGID: "{{ docker_gid }}"
+    DOCKER_MODS: "linuxserver/mods:universal-calibre"
+
+- name: audiobookshelf
+  image: ghcr.io/advplyr/audiobookshelf:latest
+  container_name: audiobookshelf
+  ports:
+  - "13378:80"
+  volumes:
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/audiobookshelf/config:/config"
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/audiobookshelf/metadata:/metadata"
+  - "/data/media/audiobooks:/audiobooks"
+  - "/data/media/podcasts:/podcasts"
+  environment:
+    TZ: "{{ timezone }}"

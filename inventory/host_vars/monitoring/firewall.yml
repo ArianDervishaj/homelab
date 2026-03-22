@@ -7,7 +7,7 @@ firewall_rules:
   source: "{{ network_netbird }}"
   comment: "Homepage from Netbird"
 - port: 3000
-  source: "{{ hostvars['proxy-vm']['ansible_host'] }}"
+  source: "{{ hostvars['proxy']['ansible_host'] }}"
   comment: "Homepage from proxy"
 - port: 3001
   source: "{{ network_main_lan }}"
@@ -16,7 +16,7 @@ firewall_rules:
   source: "{{ network_netbird }}"
   comment: "Uptime Kuma from Netbird"
 - port: 3001
-  source: "{{ hostvars['proxy-vm']['ansible_host'] }}"
+  source: "{{ hostvars['proxy']['ansible_host'] }}"
   comment: "Uptime Kuma from proxy"
 - port: 8765
   source: "{{ network_main_lan }}"
@@ -25,7 +25,7 @@ firewall_rules:
   source: "{{ network_netbird }}"
   comment: "Speedtest from Netbird"
 - port: 8765
-  source: "{{ hostvars['proxy-vm']['ansible_host'] }}"
+  source: "{{ hostvars['proxy']['ansible_host'] }}"
   comment: "Speedtest from proxy"
 - port: 68
   protocol: udp

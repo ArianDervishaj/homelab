@@ -1,6 +1,6 @@
 ---
 - name: Deploy firewall role
-  hosts: all,!router
+  hosts: all:!router:!pihole
   become: true
   roles:
     - firewall
