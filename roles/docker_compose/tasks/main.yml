@@ -2,8 +2,8 @@
 - name: Validate required variables
   ansible.builtin.assert:
     that:
-      - docker_compose_stack_name is defined
-      - docker_compose_services is defined
+    - docker_compose_stack_name is defined
+    - docker_compose_services is defined
     fail_msg: "docker_compose_stack_name and docker_compose_services must be defined"
 
 - name: Set stack directory path
@@ -44,8 +44,15 @@
     mode: "0644"
   when: docker_compose_systemd_enabled
   notify:
-    - Reload systemd
-    - Restart docker compose stack
+  - Reload systemd
+  - Restart docker compose stack
+
+- name: Check for image updates
+  ansible.builtin.shell: |
+    docker compose -f {{ docker_compose_stack_dir }}/docker-compose.yml pull 2>&1
+  register: pull_result
+  changed_when: "'Downloaded newer image' in pull_result.stdout or 'Pull complete' in pull_result.stdout"
+  notify: Restart docker compose stack
 
 - name: Enable and start stack service
   ansible.builtin.systemd:

@@ -1,0 +1,64 @@
+---
+homepage_services:
+- group: Monitoring
+  services:
+  - name: Uptime Kuma
+    href: "http://192.168.100.14:3001"
+    icon: uptime-kuma
+  - name: Speedtest Tracker
+    href: "http://192.168.100.14:8765"
+    icon: speedtest-tracker
+
+- group: Streaming
+  services:
+  - name: Jellyfin
+    href: "http://192.168.100.11:8096"
+    icon: jellyfin
+  - name: Jellyseerr
+    href: "http://192.168.100.11:5055"
+    icon: jellyseerr
+
+- group: Arr
+  services:
+  - name: Radarr
+    href: "http://192.168.100.12:7878"
+    icon: radarr
+  - name: Sonarr
+    href: "http://192.168.100.12:8989"
+    icon: sonarr
+  - name: Prowlarr
+    href: "http://192.168.100.12:9696"
+    icon: prowlarr
+
+- group: Downloader
+  services:
+  - name: qBittorrent
+    href: "http://192.168.100.13:8081"
+    icon: qbittorrent
+
+- group: Library
+  services:
+  - name: Calibre-Web
+    href: "http://192.168.100.15:8083"
+    icon: calibre-web
+  - name: Audiobookshelf
+    href: "http://192.168.100.15:13378"
+    icon: audiobookshelf
+
+- group: Infrastructure
+  services:
+  - name: Proxmox
+    href: "https://192.168.1.49:8006"
+    icon: proxmox
+  - name: Pi-hole
+    href: "http://192.168.1.225/admin"
+    icon: pi-hole
+
+homepage_settings:
+  title: "Nuggets'Lab"
+  theme: dark
+  color: gray
+  headerStyle: clean
+  background: /images/Seven_Industries.jpg
+  cardBlur: sm
+  cardOpacity: 0.8

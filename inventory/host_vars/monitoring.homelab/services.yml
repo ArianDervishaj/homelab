@@ -3,7 +3,7 @@ docker_compose_stack_name: monitoring
 
 docker_compose_services:
 - name: uptime-kuma
-  image: louislam/uptime-kuma:latest
+  image: louislam/uptime-kuma:2
   container_name: uptime-kuma
   ports:
   - "3001:3001"
@@ -19,6 +19,7 @@ docker_compose_services:
   - "3000:3000"
   volumes:
   - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/homepage:/app/config"
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/homepage/images:/app/public/images"
   - "/var/run/docker.sock:/var/run/docker.sock:ro"
   environment:
     TZ: "{{ timezone }}"

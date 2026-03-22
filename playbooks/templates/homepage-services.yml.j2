@@ -1,0 +1,10 @@
+---
+# {{ ansible_managed }}
+{% for service_group in homepage_services %}
+- {{ service_group.group }}:
+{% for svc in service_group.services %}
+    - {{ svc.name }}:
+        href: {{ svc.href }}
+        icon: {{ svc.icon }}
+{% endfor %}
+{% endfor %}
