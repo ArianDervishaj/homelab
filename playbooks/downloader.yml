@@ -1,6 +1,6 @@
 ---
 - name: Deploy Downloader Stack
-  hosts: downloader
+  hosts: downloader.homelab
   become: true
 
   pre_tasks:

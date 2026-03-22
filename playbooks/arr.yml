@@ -1,6 +1,6 @@
 ---
 - name: Deploy Arr Stack
-  hosts: arr
+  hosts: arr.homelab
   become: true
 
   pre_tasks:
