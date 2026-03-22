@@ -1,0 +1,9 @@
+---
+firewall_rules:
+- port: 8083
+  comment: "Calibre-Web"
+- port: 13378
+  comment: "Audiobookshelf"
+- port: 68
+  protocol: udp
+  comment: "DHCP Client"
