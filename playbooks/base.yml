@@ -13,7 +13,7 @@
     - ssh_hardening
 
 - name: Service VM Foundation
-  hosts: all:!router
+  hosts: all:!router:!pihole
   become: true
   roles:
     - common_tools

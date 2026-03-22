@@ -1,0 +1,645 @@
+
+PLAY [Base configuration for all VMs] ******************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [monitoring]
+ok: [proxy]
+ok: [arr]
+ok: [downloader]
+ok: [streaming]
+ok: [library]
+ok: [router-vm]
+ok: [pihole-raspberry]
+
+TASK [Ensure apt cache is up to date] ******************************************
+Calculating upgrade...
+The following packages will be upgraded:
+  docker-compose-plugin
+1 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+changed: [proxy]
+Calculating upgrade...
+The following packages will be upgraded:
+  docker-compose-plugin
+1 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+changed: [downloader]
+Calculating upgrade...
+The following packages will be upgraded:
+  docker-compose-plugin
+1 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+changed: [streaming]
+Calculating upgrade...
+The following packages will be upgraded:
+  docker-compose-plugin
+1 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+changed: [arr]
+Calculating upgrade...
+The following packages will be upgraded:
+  base-files bash busybox containerd.io dirmngr docker-ce docker-ce-cli
+  docker-ce-rootless-extras docker-compose-plugin dpkg e2fsprogs gnupg-utils
+  gpg gpg-agent gpg-wks-client gpgconf gpgsm gpgv grub-common grub-pc
+  grub-pc-bin grub2-common ifupdown libc-bin libc-l10n libc6 libcap2
+  libcap2-bin libcom-err2 libext2fs2t64 libfreetype6 libsqlite3-0 libss2
+  libssl3t64 linux-base linux-sysctl-defaults locales logsave openssh-client
+  openssh-server openssh-sftp-server openssl openssl-provider-legacy
+  python3-requests qemu-guest-agent sudo tzdata
+47 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+changed: [monitoring]
+ok: [router-vm]
+Calculating upgrade...
+The following packages will be upgraded:
+  docker-compose-plugin
+1 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+changed: [library]
+Calculating upgrade...
+The following packages were automatically installed and are no longer required:
+  libcamera0.3 libunwind8 rpicam-apps-lite
+Use 'sudo apt autoremove' to remove them.
+The following NEW packages will be installed:
+  linux-image-6.12.75+rpt-rpi-v8:arm64
+The following packages will be upgraded:
+  linux-image-rpi-v8:arm64
+1 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+changed: [pihole-raspberry]
+
+TASK [ssh_hardening : Configure SSH hardening] *********************************
+ok: [monitoring] => (item={'key': 'PasswordAuthentication', 'value': 'no'})
+ok: [proxy] => (item={'key': 'PasswordAuthentication', 'value': 'no'})
+ok: [streaming] => (item={'key': 'PasswordAuthentication', 'value': 'no'})
+ok: [arr] => (item={'key': 'PasswordAuthentication', 'value': 'no'})
+ok: [downloader] => (item={'key': 'PasswordAuthentication', 'value': 'no'})
+ok: [proxy] => (item={'key': 'PermitRootLogin', 'value': 'no'})
+ok: [monitoring] => (item={'key': 'PermitRootLogin', 'value': 'no'})
+ok: [streaming] => (item={'key': 'PermitRootLogin', 'value': 'no'})
+ok: [arr] => (item={'key': 'PermitRootLogin', 'value': 'no'})
+ok: [downloader] => (item={'key': 'PermitRootLogin', 'value': 'no'})
+ok: [monitoring] => (item={'key': 'MaxAuthTries', 'value': '3'})
+ok: [proxy] => (item={'key': 'MaxAuthTries', 'value': '3'})
+ok: [arr] => (item={'key': 'MaxAuthTries', 'value': '3'})
+ok: [streaming] => (item={'key': 'MaxAuthTries', 'value': '3'})
+ok: [downloader] => (item={'key': 'MaxAuthTries', 'value': '3'})
+ok: [library] => (item={'key': 'PasswordAuthentication', 'value': 'no'})
+ok: [router-vm] => (item={'key': 'PasswordAuthentication', 'value': 'no'})
+ok: [library] => (item={'key': 'PermitRootLogin', 'value': 'no'})
+ok: [router-vm] => (item={'key': 'PermitRootLogin', 'value': 'no'})
+--- before: /etc/ssh/sshd_config (content)
++++ after: /etc/ssh/sshd_config (content)
+@@ -54,7 +54,7 @@
+ #IgnoreRhosts yes
+ 
+ # To disable tunneled clear text passwords, change to no here!
+-#PasswordAuthentication yes
++PasswordAuthentication no
+ #PermitEmptyPasswords no
+ 
+ # Change to yes to enable challenge-response passwords (beware issues with
+
+changed: [pihole-raspberry] => (item={'key': 'PasswordAuthentication', 'value': 'no'})
+ok: [library] => (item={'key': 'MaxAuthTries', 'value': '3'})
+ok: [router-vm] => (item={'key': 'MaxAuthTries', 'value': '3'})
+--- before: /etc/ssh/sshd_config (content)
++++ after: /etc/ssh/sshd_config (content)
+@@ -30,7 +30,7 @@
+ # Authentication:
+ 
+ #LoginGraceTime 2m
+-#PermitRootLogin prohibit-password
++PermitRootLogin no
+ #StrictModes yes
+ #MaxAuthTries 6
+ #MaxSessions 10
+
+changed: [pihole-raspberry] => (item={'key': 'PermitRootLogin', 'value': 'no'})
+--- before: /etc/ssh/sshd_config (content)
++++ after: /etc/ssh/sshd_config (content)
+@@ -32,7 +32,7 @@
+ #LoginGraceTime 2m
+ #PermitRootLogin prohibit-password
+ #StrictModes yes
+-#MaxAuthTries 6
++MaxAuthTries 3
+ #MaxSessions 10
+ 
+ #PubkeyAuthentication yes
+
+changed: [pihole-raspberry] => (item={'key': 'MaxAuthTries', 'value': '3'})
+
+RUNNING HANDLER [ssh_hardening : Restart sshd] *********************************
+changed: [pihole-raspberry]
+
+PLAY [Service VM Foundation] ***************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [arr]
+ok: [monitoring]
+ok: [proxy]
+ok: [downloader]
+ok: [streaming]
+ok: [library]
+
+TASK [common_tools : Install common and dev packages] **************************
+ok: [arr]
+ok: [monitoring]
+ok: [proxy]
+ok: [streaming]
+ok: [downloader]
+ok: [library]
+
+TASK [common_tools : Enable and start qemu-guest-agent] ************************
+ok: [arr]
+ok: [monitoring]
+ok: [streaming]
+ok: [downloader]
+ok: [proxy]
+ok: [library]
+
+TASK [docker : Install Docker GPG key] *****************************************
+changed: [monitoring]
+changed: [proxy]
+changed: [downloader]
+changed: [arr]
+changed: [streaming]
+changed: [library]
+
+TASK [docker : Add Docker repository] ******************************************
+ok: [monitoring]
+ok: [proxy]
+ok: [arr]
+ok: [downloader]
+ok: [streaming]
+ok: [library]
+
+TASK [docker : Install Docker Engine and Compose Plugin] ***********************
+ok: [proxy]
+ok: [monitoring]
+ok: [streaming]
+ok: [arr]
+ok: [downloader]
+ok: [library]
+
+TASK [docker : Ensure nuggets user is in docker group] *************************
+ok: [proxy]
+ok: [streaming]
+ok: [monitoring]
+ok: [arr]
+ok: [downloader]
+ok: [library]
+
+PLAY [Deploy and config dnsmasq] ***********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [router-vm]
+
+TASK [dhcp-server : Install dnsmasq] *******************************************
+ok: [router-vm]
+
+TASK [dhcp-server : Deploy dnsmasq config] *************************************
+ok: [router-vm]
+
+TASK [dhcp-server : Enable and start dnsmasq] **********************************
+ok: [router-vm]
+
+TASK [Wait for dnsmasq to be listening] ****************************************
+skipping: [router-vm]
+
+PLAY [Configure DHCP clients] **************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [proxy]
+ok: [monitoring]
+ok: [downloader]
+ok: [arr]
+ok: [streaming]
+ok: [library]
+
+TASK [Install DHCP client and resolvconf] **************************************
+ok: [streaming]
+ok: [arr]
+ok: [downloader]
+ok: [monitoring]
+ok: [proxy]
+The following additional packages will be installed:
+  libnl-3-200 libnl-genl-3-200 libnl-route-3-200 libpcsclite1 wpasupplicant
+Suggested packages:
+  dhcpcd-gtk ppp rdnssd pcscd wpagui libengine-pkcs11-openssl
+The following packages will be REMOVED:
+  libnss-resolve systemd-resolved
+The following NEW packages will be installed:
+  dhcpcd ifupdown libnl-3-200 libnl-genl-3-200 libnl-route-3-200 libpcsclite1
+  resolvconf wpasupplicant
+0 upgraded, 8 newly installed, 2 to remove and 1 not upgraded.
+changed: [library]
+
+TASK [Deploy network interfaces config] ****************************************
+ok: [arr]
+ok: [monitoring]
+ok: [proxy]
+ok: [streaming]
+ok: [downloader]
+--- before
++++ after: /home/arian/.ansible/tmp/ansible-local-2406305kip9os/tmprcz6seul/interfaces.j2
+@@ -0,0 +1,5 @@
++auto lo
++iface lo inet loopback
++
++auto ens18
++iface ens18 inet dhcp
+\ No newline at end of file
+
+changed: [library]
+
+TASK [Deny Docker veth interfaces in dhcpcd] ***********************************
+ok: [proxy]
+ok: [monitoring]
+ok: [downloader]
+ok: [arr]
+ok: [streaming]
+--- before: /etc/dhcpcd.conf (content)
++++ after: /etc/dhcpcd.conf (content)
+@@ -41,3 +41,4 @@
+ #slaac hwaddr
+ # OR generate Stable Private IPv6 Addresses based from the DUID
+ slaac private
++denyinterfaces veth*
+
+changed: [library]
+
+TASK [Deploy resolvconf flush hook for dhcpcd] *********************************
+ok: [proxy]
+ok: [downloader]
+ok: [arr]
+ok: [monitoring]
+ok: [streaming]
+--- before
++++ after: /usr/lib/dhcpcd/dhcpcd-hooks/21-resolvconf-update
+@@ -0,0 +1,3 @@
++if $if_configured && $if_up && $have_resolvconf; then
++    "$resolvconf" -u
++fi
+
+changed: [library]
+
+RUNNING HANDLER [Restart networking] *******************************************
+fatal: [library]: FAILED! => {"changed": false, "msg": "Could not find the requested service networking: host"}
+
+PLAY [Deploy Proxy Stack] ******************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [proxy]
+
+TASK [Ensure Docker is running] ************************************************
+ok: [proxy]
+
+TASK [caddy_config : Ensure Caddy directories exist] ***************************
+ok: [proxy]
+
+TASK [caddy_config : Seed Caddyfile if it doesn't exist] ***********************
+ok: [proxy]
+
+TASK [docker_compose : Validate required variables] ****************************
+ok: [proxy] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [docker_compose : Set stack directory path] *******************************
+ok: [proxy]
+
+TASK [docker_compose : Create stack directory] *********************************
+ok: [proxy]
+
+TASK [docker_compose : Create data directories for services] *******************
+ok: [proxy] => (item={'name': 'caddy', 'image': 'caddy:latest', 'container_name': 'caddy', 'ports': ['80:80', '443:443'], 'volumes': ['/opt/stacks/proxy/caddy/Caddyfile:/etc/caddy/Caddyfile:ro', '/opt/stacks/proxy/caddy/data:/data', '/opt/stacks/proxy/caddy/config:/config'], 'environment': {'TZ': 'Europe/Zurich'}})
+
+TASK [docker_compose : Template docker-compose.yml] ****************************
+ok: [proxy]
+
+TASK [docker_compose : Template systemd service] *******************************
+ok: [proxy]
+
+TASK [docker_compose : Enable and start stack service] *************************
+ok: [proxy]
+
+PLAY [Deploy Streaming Stack] **************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [streaming]
+
+TASK [Ensure Docker is running] ************************************************
+ok: [streaming]
+
+TASK [nfs_media : Install NFS client] ******************************************
+ok: [streaming]
+
+TASK [nfs_media : Create mount point] ******************************************
+ok: [streaming]
+
+TASK [nfs_media : Mount NFS share] *********************************************
+ok: [streaming]
+
+TASK [docker_compose : Validate required variables] ****************************
+ok: [streaming] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [docker_compose : Set stack directory path] *******************************
+ok: [streaming]
+
+TASK [docker_compose : Create stack directory] *********************************
+ok: [streaming]
+
+TASK [docker_compose : Create data directories for services] *******************
+ok: [streaming] => (item={'name': 'jellyfin', 'image': 'jellyfin/jellyfin:latest', 'container_name': 'jellyfin', 'devices': ['/dev/dri:/dev/dri'], 'ports': ['8096:8096'], 'volumes': ['/opt/stacks/streaming/jellyfin/config:/config', '/opt/stacks/streaming/jellyfin/cache:/cache', '/data/media/movies:/media/movies', '/data/media/tv_shows:/media/tv_shows'], 'environment': {'TZ': 'Europe/Zurich'}})
+ok: [streaming] => (item={'name': 'jellyseerr', 'image': 'fallenbagel/jellyseerr:latest', 'container_name': 'jellyseerr', 'ports': ['5055:5055'], 'volumes': ['/opt/stacks/streaming/jellyseerr/config:/app/config'], 'environment': {'TZ': 'Europe/Zurich', 'LOG_LEVEL': 'info'}})
+skipping: [streaming] => (item={'name': 'cloudflared', 'image': 'cloudflare/cloudflared:latest', 'container_name': 'cloudflared', 'network_mode': 'host', 'command': 'tunnel --no-autoupdate run --token eyJhIjoiMWE4YjMxNTRjZDM0MDA3NDc4MTRlYmY3ODQ2OWZhMWUiLCJ0IjoiOTIwNzUzOGItNmJjZS00NzU2LThmYTItNDVhNzkyNjJjN2U2IiwicyI6Ik1qZzROMkkwTURndFlXRmhPQzAwTkRGaExXRTBaak10TURVNE9UWmxZV1F4WlRRMyJ9'}) 
+
+TASK [docker_compose : Template docker-compose.yml] ****************************
+ok: [streaming]
+
+TASK [docker_compose : Template systemd service] *******************************
+ok: [streaming]
+
+TASK [docker_compose : Enable and start stack service] *************************
+ok: [streaming]
+
+PLAY [Deploy Arr Stack] ********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [arr]
+
+TASK [Ensure Docker is running] ************************************************
+ok: [arr]
+
+TASK [nfs_media : Install NFS client] ******************************************
+ok: [arr]
+
+TASK [nfs_media : Create mount point] ******************************************
+ok: [arr]
+
+TASK [nfs_media : Mount NFS share] *********************************************
+ok: [arr]
+
+TASK [docker_compose : Validate required variables] ****************************
+ok: [arr] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [docker_compose : Set stack directory path] *******************************
+ok: [arr]
+
+TASK [docker_compose : Create stack directory] *********************************
+ok: [arr]
+
+TASK [docker_compose : Create data directories for services] *******************
+ok: [arr] => (item={'name': 'radarr', 'image': 'linuxserver/radarr:latest', 'container_name': 'radarr', 'ports': ['7878:7878'], 'volumes': ['/opt/stacks/arr/radarr/config:/config', '/data/media/movies:/movies', '/data/downloads:/downloads'], 'environment': {'TZ': 'Europe/Zurich', 'PUID': '1000', 'PGID': '1000'}})
+ok: [arr] => (item={'name': 'sonarr', 'image': 'linuxserver/sonarr:latest', 'container_name': 'sonarr', 'ports': ['8989:8989'], 'volumes': ['/opt/stacks/arr/sonarr/config:/config', '/data/media/tv_shows:/tv', '/data/downloads:/downloads'], 'environment': {'TZ': 'Europe/Zurich', 'PUID': '1000', 'PGID': '1000'}})
+ok: [arr] => (item={'name': 'prowlarr', 'image': 'linuxserver/prowlarr:latest', 'container_name': 'prowlarr', 'ports': ['9696:9696'], 'volumes': ['/opt/stacks/arr/prowlarr/config:/config'], 'environment': {'TZ': 'Europe/Zurich', 'PUID': '1000', 'PGID': '1000'}})
+ok: [arr] => (item={'name': 'bazarr', 'image': 'linuxserver/bazarr:latest', 'container_name': 'bazarr', 'ports': ['6767:6767'], 'volumes': ['/opt/stacks/arr/bazarr/config:/config', '/data/media/movies:/movies', '/data/media/tv_shows:/tv'], 'environment': {'TZ': 'Europe/Zurich', 'PUID': '1000', 'PGID': '1000'}})
+
+TASK [docker_compose : Template docker-compose.yml] ****************************
+ok: [arr]
+
+TASK [docker_compose : Template systemd service] *******************************
+ok: [arr]
+
+TASK [docker_compose : Enable and start stack service] *************************
+ok: [arr]
+
+PLAY [Deploy Downloader Stack] *************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [downloader]
+
+TASK [Ensure Docker is running] ************************************************
+ok: [downloader]
+
+TASK [nfs_media : Install NFS client] ******************************************
+ok: [downloader]
+
+TASK [nfs_media : Create mount point] ******************************************
+ok: [downloader]
+
+TASK [nfs_media : Mount NFS share] *********************************************
+ok: [downloader]
+
+TASK [docker_compose : Validate required variables] ****************************
+ok: [downloader] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [docker_compose : Set stack directory path] *******************************
+ok: [downloader]
+
+TASK [docker_compose : Create stack directory] *********************************
+ok: [downloader]
+
+TASK [docker_compose : Create data directories for services] *******************
+ok: [downloader] => (item={'name': 'gluetun', 'image': 'qmcgaw/gluetun:latest', 'container_name': 'gluetun', 'cap_add': ['NET_ADMIN'], 'devices': ['/dev/net/tun:/dev/net/tun'], 'ports': ['8081:8081', '6881:6881', '6881:6881/udp'], 'volumes': ['/opt/stacks/downloader/gluetun:/gluetun'], 'environment': {'TZ': 'Europe/Zurich', 'VPN_SERVICE_PROVIDER': 'protonvpn', 'VPN_TYPE': 'wireguard', 'WIREGUARD_PRIVATE_KEY': 'KLW9j6lY8Cf6QZWKJ8KgaKYsVrEMNPaH/9fM7tkB1XE=', 'WIREGUARD_ADDRESSES': '10.2.0.2/32', 'SERVER_COUNTRIES': 'Switzerland'}})
+ok: [downloader] => (item={'name': 'qbittorrent', 'image': 'linuxserver/qbittorrent:latest', 'container_name': 'qbittorrent', 'network_mode': 'service:gluetun', 'volumes': ['/opt/stacks/downloader/qbittorrent/config:/config', '/data/downloads:/downloads'], 'environment': {'TZ': 'Europe/Zurich', 'PUID': '1000', 'PGID': '1000', 'WEBUI_PORT': '8081'}, 'depends_on': ['gluetun']})
+
+TASK [docker_compose : Template docker-compose.yml] ****************************
+ok: [downloader]
+
+TASK [docker_compose : Template systemd service] *******************************
+ok: [downloader]
+
+TASK [docker_compose : Enable and start stack service] *************************
+ok: [downloader]
+
+PLAY [Deploy Monitoring Stack] *************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [monitoring]
+
+TASK [Ensure Docker is running] ************************************************
+ok: [monitoring]
+
+TASK [docker_compose : Validate required variables] ****************************
+ok: [monitoring] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [docker_compose : Set stack directory path] *******************************
+ok: [monitoring]
+
+TASK [docker_compose : Create stack directory] *********************************
+ok: [monitoring]
+
+TASK [docker_compose : Create data directories for services] *******************
+--- before
++++ after
+@@ -1,5 +1,5 @@
+ {
+-    "group": 0,
+-    "owner": 0,
++    "group": 989,
++    "owner": 1000,
+     "path": "/opt/stacks/monitoring/uptime-kuma"
+ }
+
+changed: [monitoring] => (item={'name': 'uptime-kuma', 'image': 'louislam/uptime-kuma:latest', 'container_name': 'uptime-kuma', 'ports': ['3001:3001'], 'volumes': ['/opt/stacks/monitoring/uptime-kuma:/app/data'], 'environment': {'TZ': 'Europe/Zurich'}})
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "group": 1000,
++    "group": 989,
+     "path": "/opt/stacks/monitoring/homepage"
+ }
+
+changed: [monitoring] => (item={'name': 'homepage', 'image': 'ghcr.io/gethomepage/homepage:latest', 'container_name': 'homepage', 'ports': ['3000:3000'], 'volumes': ['/opt/stacks/monitoring/homepage:/app/config', '/var/run/docker.sock:/var/run/docker.sock:ro'], 'environment': {'TZ': 'Europe/Zurich', 'PUID': '1000', 'PGID': '1000', 'HOMEPAGE_ALLOWED_HOSTS': 'homepage.lan,192.168.100.14:3000'}})
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "group": 1000,
++    "group": 989,
+     "path": "/opt/stacks/monitoring/speedtest-tracker"
+ }
+
+changed: [monitoring] => (item={'name': 'speedtest-tracker', 'image': 'lscr.io/linuxserver/speedtest-tracker:latest', 'container_name': 'speedtest-tracker', 'ports': ['8765:80'], 'volumes': ['/opt/stacks/monitoring/speedtest-tracker:/config'], 'environment': {'TZ': 'Europe/Zurich', 'PUID': '1000', 'PGID': '1000', 'APP_KEY': 'base64:GhYnjus3BLRVjGwS7TSAKW6TH0q84jbBo2cpVZLDUWk=', 'DB_CONNECTION': 'sqlite', 'SPEEDTEST_SCHEDULE': '0 */6 * * *', 'DISPLAY_TIMEZONE': 'Europe/Zurich'}})
+
+TASK [docker_compose : Template docker-compose.yml] ****************************
+ok: [monitoring]
+
+TASK [docker_compose : Template systemd service] *******************************
+ok: [monitoring]
+
+TASK [docker_compose : Enable and start stack service] *************************
+ok: [monitoring]
+
+PLAY [Deploy firewall role] ****************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [proxy]
+ok: [monitoring]
+ok: [arr]
+ok: [downloader]
+ok: [streaming]
+
+TASK [firewall : Install iptables and persistence] *****************************
+ok: [proxy]
+ok: [arr]
+ok: [monitoring]
+ok: [streaming]
+ok: [downloader]
+
+TASK [firewall : Set default INPUT policy to ACCEPT temporarily] ***************
+ok: [proxy]
+ok: [streaming]
+ok: [downloader]
+ok: [monitoring]
+ok: [arr]
+
+TASK [firewall : Flush existing rules] *****************************************
+changed: [arr] => (item=INPUT)
+changed: [proxy] => (item=INPUT)
+changed: [streaming] => (item=INPUT)
+changed: [monitoring] => (item=INPUT)
+changed: [downloader] => (item=INPUT)
+
+TASK [firewall : Allow established and related connections] ********************
+ok: [proxy]
+ok: [streaming]
+ok: [arr]
+ok: [downloader]
+ok: [monitoring]
+
+TASK [firewall : Allow loopback interface] *************************************
+ok: [proxy]
+ok: [streaming]
+ok: [arr]
+ok: [downloader]
+ok: [monitoring]
+
+TASK [firewall : Allow ICMP] ***************************************************
+ok: [arr]
+ok: [proxy]
+ok: [monitoring]
+ok: [streaming]
+ok: [downloader]
+
+TASK [firewall : Allow SSH] ****************************************************
+ok: [proxy] => (item=192.168.1.0/24)
+ok: [monitoring] => (item=192.168.1.0/24)
+ok: [arr] => (item=192.168.1.0/24)
+ok: [streaming] => (item=192.168.1.0/24)
+ok: [downloader] => (item=192.168.1.0/24)
+ok: [proxy] => (item=192.168.100.0/24)
+ok: [streaming] => (item=192.168.100.0/24)
+ok: [monitoring] => (item=192.168.100.0/24)
+ok: [arr] => (item=192.168.100.0/24)
+ok: [downloader] => (item=192.168.100.0/24)
+ok: [proxy] => (item=100.86.0.0/16)
+ok: [arr] => (item=100.86.0.0/16)
+ok: [streaming] => (item=100.86.0.0/16)
+ok: [monitoring] => (item=100.86.0.0/16)
+ok: [downloader] => (item=100.86.0.0/16)
+
+TASK [firewall : Apply per-host firewall rules] ********************************
+ok: [proxy] => (item={'port': 80, 'source': '192.168.1.0/24', 'comment': 'HTTP from main LAN'})
+ok: [streaming] => (item={'port': 8096, 'comment': 'Jellyfin'})
+ok: [arr] => (item={'port': 7878, 'source': '192.168.1.0/24', 'comment': 'Radarr from main LAN'})
+ok: [downloader] => (item={'port': 8081, 'source': '192.168.100.12', 'comment': 'qBittorrent WebUI from arr'})
+ok: [monitoring] => (item={'port': 3000, 'source': '192.168.1.0/24', 'comment': 'Homepage from main LAN'})
+ok: [proxy] => (item={'port': 80, 'source': '100.86.0.0/16', 'comment': 'HTTP from Netbird'})
+ok: [streaming] => (item={'port': 5055, 'comment': 'Jellyseerr'})
+ok: [arr] => (item={'port': 7878, 'source': '100.86.0.0/16', 'comment': 'Radarr from Netbird'})
+ok: [monitoring] => (item={'port': 3000, 'source': '100.86.0.0/16', 'comment': 'Homepage from Netbird'})
+ok: [downloader] => (item={'port': 8081, 'source': '192.168.100.10', 'comment': 'qBittorrent WebUI from proxy'})
+ok: [proxy] => (item={'port': 443, 'source': '192.168.1.0/24', 'comment': 'HTTPS from main LAN'})
+ok: [streaming] => (item={'port': 68, 'protocol': 'udp', 'comment': 'DHCP Client'})
+ok: [arr] => (item={'port': 7878, 'source': '192.168.100.10', 'comment': 'Radarr from proxy'})
+ok: [downloader] => (item={'port': 8081, 'source': '192.168.1.0/24', 'comment': 'qBittorrent WebUI from main LAN'})
+ok: [monitoring] => (item={'port': 3000, 'source': '192.168.100.10', 'comment': 'Homepage from proxy'})
+ok: [proxy] => (item={'port': 443, 'source': '100.86.0.0/16', 'comment': 'HTTPS from Netbird'})
+ok: [arr] => (item={'port': 7878, 'source': '192.168.100.11', 'comment': 'Radarr from streaming (Jellyseerr)'})
+ok: [monitoring] => (item={'port': 3001, 'source': '192.168.1.0/24', 'comment': 'Uptime Kuma from main LAN'})
+ok: [downloader] => (item={'port': 8081, 'source': '100.86.0.0/16', 'comment': 'qBittorrent WebUI from Netbird'})
+ok: [proxy] => (item={'port': 68, 'protocol': 'udp', 'comment': 'DHCP Client'})
+ok: [arr] => (item={'port': 8989, 'source': '192.168.1.0/24', 'comment': 'Sonarr from main LAN'})
+ok: [monitoring] => (item={'port': 3001, 'source': '100.86.0.0/16', 'comment': 'Uptime Kuma from Netbird'})
+ok: [downloader] => (item={'port': 68, 'protocol': 'udp', 'comment': 'DHCP Client'})
+ok: [monitoring] => (item={'port': 3001, 'source': '192.168.100.10', 'comment': 'Uptime Kuma from proxy'})
+ok: [arr] => (item={'port': 8989, 'source': '100.86.0.0/16', 'comment': 'Sonarr from Netbird'})
+ok: [monitoring] => (item={'port': 8765, 'source': '192.168.1.0/24', 'comment': 'Speedtest from main LAN'})
+ok: [arr] => (item={'port': 8989, 'source': '192.168.100.10', 'comment': 'Sonarr from proxy'})
+ok: [monitoring] => (item={'port': 8765, 'source': '100.86.0.0/16', 'comment': 'Speedtest from Netbird'})
+ok: [arr] => (item={'port': 8989, 'source': '192.168.100.11', 'comment': 'Sonarr from streaming (Jellyseerr)'})
+ok: [monitoring] => (item={'port': 8765, 'source': '192.168.100.10', 'comment': 'Speedtest from proxy'})
+ok: [arr] => (item={'port': 9696, 'source': '192.168.1.0/24', 'comment': 'Prowlarr from main LAN'})
+ok: [monitoring] => (item={'port': 68, 'protocol': 'udp', 'comment': 'DHCP Client'})
+ok: [arr] => (item={'port': 9696, 'source': '100.86.0.0/16', 'comment': 'Prowlarr from Netbird'})
+ok: [arr] => (item={'port': 9696, 'source': '192.168.100.10', 'comment': 'Prowlarr from proxy'})
+ok: [arr] => (item={'port': 6767, 'source': '192.168.1.0/24', 'comment': 'Bazarr from main LAN'})
+ok: [arr] => (item={'port': 6767, 'source': '100.86.0.0/16', 'comment': 'Bazarr from Netbird'})
+ok: [arr] => (item={'port': 6767, 'source': '192.168.100.10', 'comment': 'Bazarr from proxy'})
+ok: [arr] => (item={'port': 68, 'protocol': 'udp', 'comment': 'DHCP Client'})
+
+TASK [firewall : Set default INPUT policy to DROP] *****************************
+ok: [streaming]
+ok: [proxy]
+ok: [downloader]
+ok: [monitoring]
+ok: [arr]
+
+TASK [firewall : Set default OUTPUT policy to ACCEPT] **************************
+ok: [proxy]
+ok: [streaming]
+ok: [arr]
+ok: [monitoring]
+ok: [downloader]
+
+PLAY RECAP *********************************************************************
+arr                        : ok=38   changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+downloader                 : ok=38   changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+library                    : ok=15   changed=6    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+monitoring                 : ok=35   changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+pihole-raspberry           : ok=4    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+proxy                      : ok=37   changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+router-vm                  : ok=7    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+streaming                  : ok=38   changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
