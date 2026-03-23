@@ -1,0 +1,7 @@
+# {{ ansible_managed }}
+{% for site in caddy_sites %}
+    http://{{ site.hostname }} {
+    reverse_proxy {{ site.backend }}
+    }
+    {% if not loop.last %}{% endif %}
+{% endfor %}

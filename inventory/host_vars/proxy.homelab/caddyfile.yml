@@ -1,0 +1,21 @@
+caddy_sites:
+- hostname: homepage.lan
+  backend: "192.168.100.14:3000"
+- hostname: uptime.lan
+  backend: "192.168.100.14:3001"
+- hostname: speedtest.lan
+  backend: "192.168.100.14:8765"
+- hostname: jellyfin.lan
+  backend: "192.168.100.11:8096"
+- hostname: jellyseerr.lan
+  backend: "192.168.100.11:5055"
+- hostname: radarr.lan
+  backend: "192.168.100.12:7878"
+- hostname: sonarr.lan
+  backend: "192.168.100.12:8989"
+- hostname: prowlarr.lan
+  backend: "192.168.100.12:9696"
+- hostname: bazarr.lan
+  backend: "192.168.100.12:6767"
+- hostname: qbittorrent.lan
+  backend: "192.168.100.13:8081"

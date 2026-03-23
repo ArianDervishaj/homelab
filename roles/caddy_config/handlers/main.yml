@@ -1,0 +1,7 @@
+---
+- name: restart caddy
+  community.docker.docker_compose_v2:
+    project_src: "{{ docker_compose_base_dir }}/proxy"
+    services:
+      - caddy
+    state: restarted

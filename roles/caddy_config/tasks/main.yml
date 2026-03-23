@@ -7,16 +7,11 @@
     group: "{{ docker_compose_group }}"
     mode: "0755"
 
-- name: Seed Caddyfile if it doesn't exist
-  ansible.builtin.copy:
+- name: Deploy Caddyfile
+  ansible.builtin.template:
+    src: Caddyfile.j2
     dest: "{{ docker_compose_base_dir }}/proxy/caddy/Caddyfile"
-    content: |
-      # Managed manually - Ansible only creates this if missing
-
-      :80 {
-        respond "Caddy is running" 200
-      }
     owner: "{{ docker_compose_owner }}"
     group: "{{ docker_compose_group }}"
     mode: "0644"
-    force: false
+  notify: restart caddy

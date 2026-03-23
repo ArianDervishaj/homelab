@@ -4,12 +4,12 @@
   become: true
 
   pre_tasks:
-    - name: Ensure Docker is running
-      ansible.builtin.service:
-        name: docker
-        state: started
-        enabled: true
+  - name: Ensure Docker is running
+    ansible.builtin.service:
+      name: docker
+      state: started
+      enabled: true
 
   roles:
-    - caddy_config
-    - docker_compose
+  - caddy_config
+  - docker_compose
