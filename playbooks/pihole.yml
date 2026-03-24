@@ -1,0 +1,7 @@
+---
+- name: Configure Pi-hole
+  hosts: pihole
+  become: true
+
+  roles:
+    - pihole_dns

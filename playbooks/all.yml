@@ -22,3 +22,5 @@
 # noqa: name[play]
 - import_playbook: firewall.yml
 
+# noqa: name[play]
+- import_playbook: pihole.yml

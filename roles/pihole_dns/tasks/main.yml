@@ -1,0 +1,48 @@
+---
+- name: Authenticate with Pi-hole API
+  ansible.builtin.uri:
+    url: "{{ pihole_api_url }}/auth"
+    method: POST
+    body_format: json
+    body:
+      password: "{{ vault_pihole_app_password }}"
+    validate_certs: false
+  register: pihole_auth
+
+- name: Set session ID
+  ansible.builtin.set_fact:
+    pihole_sid: "{{ pihole_auth.json.session.sid }}"
+
+- name: Get current DNS hosts
+  ansible.builtin.uri:
+    url: "{{ pihole_api_url }}/config/dns/hosts"
+    method: GET
+    headers:
+      sid: "{{ pihole_sid }}"
+    validate_certs: false
+  register: pihole_current_hosts
+
+- name: Build desired DNS records
+  ansible.builtin.set_fact:
+    pihole_desired_records: "{{ caddy_sites | map(attribute='hostname') | map('regex_replace', '^(.*)$', pihole_proxy_ip ~ ' \\1') | list }}"
+
+- name: Add missing DNS records
+  ansible.builtin.uri:
+    url: "{{ pihole_api_url }}/config/dns/hosts/{{ item | urlencode() }}"
+    method: PUT
+    headers:
+      sid: "{{ pihole_sid }}"
+    validate_certs: false
+    status_code: [ 200, 201 ]
+  loop: "{{ pihole_desired_records }}"
+  when: item not in pihole_current_hosts.json.config.dns.hosts
+
+- name: Remove stale DNS records
+  ansible.builtin.uri:
+    url: "{{ pihole_api_url }}/config/dns/hosts/{{ item | urlencode() }}"
+    method: DELETE
+    headers:
+      sid: "{{ pihole_sid }}"
+    validate_certs: false
+  loop: "{{ pihole_current_hosts.json.config.dns.hosts }}"
+  when: item not in pihole_desired_records
