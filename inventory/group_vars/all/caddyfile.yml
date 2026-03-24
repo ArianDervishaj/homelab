@@ -1,3 +1,4 @@
+---
 caddy_sites:
 - hostname: homepage.lan
   backend: "192.168.100.14:3000"
