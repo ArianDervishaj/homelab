@@ -1,0 +1,4 @@
+---
+- name: restart cloudflared
+  ansible.builtin.command:
+    cmd: docker restart cloudflared

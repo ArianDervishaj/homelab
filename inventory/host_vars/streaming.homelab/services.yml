@@ -32,4 +32,7 @@ docker_compose_services:
   image: cloudflare/cloudflared:2026.3.0
   container_name: cloudflared
   network_mode: host
-  command: tunnel --no-autoupdate run --token {{ vault_cloudflare_tunnel_token }}
+  command: tunnel run
+  volumes:
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/cloudflared/config.yml:/etc/cloudflared/config.yml:ro"
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/cloudflared/credentials.json:/etc/cloudflared/credentials.json:ro"

@@ -1,0 +1,26 @@
+---
+- name: Ensure cloudflared config directory exists
+  ansible.builtin.file:
+    path: "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/cloudflared"
+    state: directory
+    owner: "65532"
+    group: "65532"
+    mode: "0700"
+
+- name: Deploy cloudflared credentials
+  ansible.builtin.template:
+    src: credentials.json.j2
+    dest: "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/cloudflared/credentials.json"
+    owner: "65532"
+    group: "65532"
+    mode: "0600"
+  notify: restart cloudflared
+
+- name: Deploy cloudflared config
+  ansible.builtin.template:
+    src: config.yml.j2
+    dest: "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/cloudflared/config.yml"
+    owner: "65532"
+    group: "65532"
+    mode: "0644"
+  notify: restart cloudflared
