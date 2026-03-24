@@ -1,48 +1,50 @@
----
 homepage_services:
 - group: Monitoring
   services:
   - name: Uptime Kuma
-    href: "http://192.168.100.14:3001"
+    href: "http://uptime.lan"
     icon: uptime-kuma
   - name: Speedtest Tracker
-    href: "http://192.168.100.14:8765"
+    href: "http://speedtest.lan"
     icon: speedtest-tracker
 
 - group: Streaming
   services:
   - name: Jellyfin
-    href: "http://192.168.100.11:8096"
+    href: "http://jellyfin.lan"
     icon: jellyfin
   - name: Jellyseerr
-    href: "http://192.168.100.11:5055"
+    href: "http://jellyseerr.lan"
     icon: jellyseerr
 
 - group: Arr
   services:
   - name: Radarr
-    href: "http://192.168.100.12:7878"
+    href: "http://radarr.lan"
     icon: radarr
   - name: Sonarr
-    href: "http://192.168.100.12:8989"
+    href: "http://sonarr.lan"
     icon: sonarr
   - name: Prowlarr
-    href: "http://192.168.100.12:9696"
+    href: "http://prowlarr.lan"
     icon: prowlarr
+  - name: Bazarr
+    href: "http://bazarr.lan"
+    icon: bazarr
 
 - group: Downloader
   services:
   - name: qBittorrent
-    href: "http://192.168.100.13:8081"
+    href: "http://qbittorrent.lan"
     icon: qbittorrent
 
 - group: Library
   services:
   - name: Calibre-Web
-    href: "http://192.168.100.15:8083"
+    href: "http://calibre.lan"
     icon: calibre-web
   - name: Audiobookshelf
-    href: "http://192.168.100.15:13378"
+    href: "http://audiobookshelf.lan"
     icon: audiobookshelf
 
 - group: Infrastructure
@@ -51,7 +53,7 @@ homepage_services:
     href: "https://192.168.1.49:8006"
     icon: proxmox
   - name: Pi-hole
-    href: "http://192.168.1.225/admin"
+    href: "https://192.168.1.225/admin"
     icon: pi-hole
 
 homepage_settings:
