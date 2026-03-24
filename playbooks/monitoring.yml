@@ -28,15 +28,3 @@
       owner: "{{ docker_compose_owner }}"
       group: "{{ docker_compose_group }}"
       mode: "0644"
-
-  - name: Check for image updates
-    ansible.builtin.shell: |
-      docker compose -f {{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/docker-compose.yml pull 2>&1
-    register: pull_result
-    changed_when: "'Downloaded newer image' in pull_result.stdout or 'Pull complete' in pull_result.stdout"
-
-  - name: Restart stack if images updated
-    ansible.builtin.systemd:
-      name: "{{ docker_compose_stack_name }}"
-      state: restarted
-    when: pull_result.changed
