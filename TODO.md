@@ -12,6 +12,7 @@
     - [ ] SSH bruteforce, failed sudo
 - [ ] Deploy hashicorp
 - [ ] Deploy honeypot
+- [ ] try attack infra (container escape, vm pivot etc)
 
 
 ## Done
