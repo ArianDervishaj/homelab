@@ -71,7 +71,7 @@ All services accessible via Pi-hole local DNS:
 
 ### Prerequisites
 
-- Proxmox VE host with VMs provisioned (see [homelab-terraform](link-to-your-terraform-repo) for automated provisioning)
+- Proxmox VE host with VMs provisioned (see [homelab-terraform](https://github.com/ArianDervishaj/homelab-infra) for automated provisioning)
 - SSH key access to all VMs
 - Ansible Vault password for encrypted secrets
 
