@@ -6,8 +6,13 @@ Ansible-managed homelab infrastructure running on Proxmox VE with security-focus
 
 ### Network Diagrams
 
-- [Physical Network Topology](docs/architecture/physical-layer.png) - Hardware layout and physical connections
-- [Logical Network Topology](docs/architecture/logical-network.png) - Network segmentation and service architecture
+- Hardware layout and physical connections
+  
+  ![Physical Network Topology](docs/architecture/physical-layer.png) 
+
+- Network segmentation and service architecture
+
+  ![Logical Network Topology](docs/architecture/logical-network.png)
 
 ### Infrastructure Overview
 
@@ -35,48 +40,46 @@ Ansible-managed homelab infrastructure running on Proxmox VE with security-focus
 | arr | 192.168.100.12 | Radarr, Sonarr, Prowlarr, Bazarr | Media automation |
 | downloader | 192.168.100.13 | qBittorrent, gluetun | Downloads via ProtonVPN with kill switch |
 | monitoring | 192.168.100.14 | Homepage, Uptime Kuma, Speedtest-tracker | Observability |
+| library | 192.168.100.15 | Calibre-Web, Audiobookshelf | Ebook and audiobook library |
 
 ### Storage
 
 - ZFS pool "tank" (5TB) provides NFS shares
 - Mounted by: streaming VM, arr VM, downloader VM
 
-## Security Features
 
-- **Network isolation:** Homelab subnet separated from main network
-- **VPN kill switch:** Downloader VM routes all traffic through ProtonVPN via gluetun
-- **Service segmentation:** Each service type runs on dedicated VM
-- **Reverse proxy:** External access only through Caddy
-- **DNS filtering:** Pi-hole for network-wide ad blocking
-
-## Internal DNS (.lan domains)
+### Internal DNS (.lan domains)
 
 All services accessible via Pi-hole local DNS:
 - `jellyfin.lan`, `jellyseerr.lan`, `radarr.lan`, `sonarr.lan`
 - `prowlarr.lan`, `bazarr.lan`, `qbittorrent.lan`
 - `homepage.lan`, `uptime.lan`, `speedtest.lan`
+- `calibre.lan`, `audiobookshelf.lan`
 
-## Project Structure
+## Security
+
+- **Network isolation:** Homelab VMs run on a dedicated `192.168.100.0/24` subnet behind a router VM that bridges to the main LAN. Inter-network traffic is controlled at the routing layer.
+- **Host firewalls:** Each VM has iptables rules defined in Ansible with a default INPUT policy of DROP. Only explicitly allowed ports and sources are permitted, scoped per-host.
+- **SSH hardening:** Password authentication disabled, root login denied, max 3 auth attempts. Key-only access across all VMs.
+- **VPN kill switch:** The downloader VM routes all traffic through ProtonVPN via gluetun.
+- **Service segmentation:** Each service category runs on a dedicated VM to limit blast radius if one is compromised.
+- **Reverse proxy:** Caddy handles internal traffic routing for all `.lan` services within the homelab network.
+- **External access:** Public-facing services (streaming) are exposed through a Cloudflare Tunnel. No inbound ports are opened on the home network.
+- **Secrets management:** All sensitive values (API keys, tunnel credentials) encrypted with Ansible Vault.
+
+## Usage
+
+### Prerequisites
+
+- Proxmox VE host with VMs provisioned (see [homelab-terraform](link-to-your-terraform-repo) for automated provisioning)
+- SSH key access to all VMs
+- Ansible Vault password for encrypted secrets
+
+### Deploy
+```bash
+# Deploy everything
+ansible-playbook playbooks/all.yml --ask-vault-pass
+
+# Deploy a single stack (e.g. monitoring)
+ansible-playbook playbooks/monitoring.yml --ask-vault-pass
 ```
-.
-├── ansible.cfg
-├── inventory/
-│   ├── hosts.yml
-│   └── group_vars/
-│       └── all.yml
-├── playbooks/
-├── roles/
-└── docs/
-    └── architecture/
-        ├── physical-layer.drawio
-        ├── physical-layer.png
-        ├── logical-network.drawio
-        └── logical-network.png
-```
-
-## Notes
-
-- Pi-hole DNS server runs on Raspberry Pi (192.168.1.225), managed separately
-- Infrastructure-as-code approach using Ansible for reproducibility
-- All secrets managed via Ansible Vault
-- DHCP Server on Router
