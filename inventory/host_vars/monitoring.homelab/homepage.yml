@@ -55,6 +55,12 @@ homepage_services:
   - name: Pi-hole
     href: "https://192.168.1.225/admin"
     icon: pi-hole
+  - name: TP-Link Switch
+    href: "http://192.168.1.157"
+    icon: mdi-switch
+  - name: OpenMediaVault
+    href: "http://192.168.1.119"
+    icon: si-openmediavault
 
 homepage_settings:
   title: "Nuggets'Lab"
