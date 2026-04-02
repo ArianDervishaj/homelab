@@ -4,3 +4,4 @@
 
 # Wed 2nd April 2026
 - Switched NFS media storage from local HDD (192.168.1.49) to OMV NAS (192.168.1.119)
+- Added gpu passthrough role to ansible for compatibility with terraform
