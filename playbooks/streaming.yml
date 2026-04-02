@@ -11,6 +11,7 @@
         enabled: true
 
   roles:
+    - gpu_passthrough
     - nfs_media
     - cloudflare_tunnel
     - docker_compose

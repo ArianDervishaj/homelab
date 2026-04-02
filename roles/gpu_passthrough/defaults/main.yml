@@ -1,0 +1,3 @@
+---
+gpu_passthrough_kernel_package: linux-image-amd64
+gpu_passthrough_cloud_kernel_package: linux-image-cloud-amd64

@@ -1,0 +1,46 @@
+---
+- name: Install full kernel (cloud kernel lacks GPU drivers)
+  ansible.builtin.apt:
+    name: "{{ gpu_passthrough_kernel_package }}"
+    state: present
+    update_cache: true
+  register: kernel_install
+
+- name: Remove cloud kernel
+  ansible.builtin.apt:
+    name: "{{ gpu_passthrough_cloud_kernel_package }}"
+    state: absent
+    purge: true
+  register: cloud_kernel_remove
+
+- name: Update GRUB
+  ansible.builtin.command: update-grub
+  when: kernel_install.changed or cloud_kernel_remove.changed
+
+- name: Reboot to load full kernel
+  ansible.builtin.reboot:
+    msg: "Rebooting to load full kernel for GPU passthrough"
+    reboot_timeout: 300
+  when: kernel_install.changed or cloud_kernel_remove.changed
+
+- name: Verify full kernel is running
+  ansible.builtin.command: uname -r
+  register: running_kernel
+  changed_when: false
+
+- name: Assert not running cloud kernel
+  ansible.builtin.assert:
+    that:
+      - "'cloud' not in running_kernel.stdout"
+    fail_msg: "Still running cloud kernel: {{ running_kernel.stdout }}. GPU passthrough will not work."
+    success_msg: "Running full kernel: {{ running_kernel.stdout }}"
+
+- name: Verify GPU device exists
+  ansible.builtin.stat:
+    path: /dev/dri
+  register: dri_device
+
+- name: Warn if /dev/dri not found
+  ansible.builtin.debug:
+    msg: "WARNING: /dev/dri not found. Check PCI passthrough configuration in Proxmox."
+  when: not dri_device.stat.exists
