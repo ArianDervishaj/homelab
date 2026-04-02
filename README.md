@@ -22,7 +22,9 @@ Ansible-managed homelab infrastructure running on Proxmox VE with security-focus
   - 64GB RAM
   - 512GB SSD
   - Proxmox VE 8.4
-- 5TB ZFS pool "tank" with NFS shares
+- OpenMediaVault NAS (192.168.1.119)
+  - 2x 3.6TB in RAID1
+  - NFS shares for media and VM backups
 - Raspberry Pi 4B 8GB (Pi-hole DNS)
 
 **Network Segmentation:**
@@ -32,11 +34,13 @@ Ansible-managed homelab infrastructure running on Proxmox VE with security-focus
 
 ### Virtual Machines
 
+All VMs are provisioned via [Terraform](https://github.com/ArianDervishaj/homelab-infra) and configured with Ansible.
+
 | VM | IP | Services | Purpose |
 |---|---|---|---|
 | router | 192.168.1.159 / 192.168.100.1 | gateway, NAT | Network bridge between subnets |
 | proxy | 192.168.100.10 | Caddy | Reverse proxy, ingress/edge |
-| streaming | 192.168.100.11 | Jellyfin, Jellyseerr | Media streaming, public-facing |
+| streaming | 192.168.100.11 | Jellyfin, Jellyseerr, Cloudflared | Media streaming, public-facing (iGPU passthrough for HW transcoding) |
 | arr | 192.168.100.12 | Radarr, Sonarr, Prowlarr, Bazarr | Media automation |
 | downloader | 192.168.100.13 | qBittorrent, gluetun | Downloads via ProtonVPN with kill switch |
 | monitoring | 192.168.100.14 | Homepage, Uptime Kuma, Speedtest-tracker | Observability |
@@ -44,9 +48,25 @@ Ansible-managed homelab infrastructure running on Proxmox VE with security-focus
 
 ### Storage
 
-- ZFS pool "tank" (5TB) provides NFS shares
-- Mounted by: streaming VM, arr VM, downloader VM
+- **OpenMediaVault NAS** (192.168.1.119) provides NFS shares over RAID1
+  - `/export/tank/media` mounted at `/data` on media VMs (streaming, arr, downloader, library)
+  - `/export/vm-backups` VM application data backups
+- Media directories: `movies`, `tv_shows`, `audiobooks`, `books`, `podcasts`, `downloads`
 
+### Roles
+
+| Role | Description |
+|---|---|
+| `ssh_hardening` | Disable password auth, root login, limit auth attempts |
+| `common_tools` | Base packages for all service VMs |
+| `docker` | Docker engine installation |
+| `docker_compose` | Templated docker-compose stacks with systemd services |
+| `nfs_media` | Mount NAS media share via NFS |
+| `caddy_config` | Caddyfile templating for reverse proxy |
+| `cloudflare_tunnel` | Cloudflare tunnel credentials and config |
+| `firewall` | Per-host iptables rules with default DROP policy |
+| `gpu_passthrough` | Install full kernel and remove cloud kernel for iGPU passthrough |
+| `pihole_dns` | Pi-hole DNS configuration |
 
 ### Internal DNS (.lan domains)
 
@@ -71,15 +91,18 @@ All services accessible via Pi-hole local DNS:
 
 ### Prerequisites
 
-- Proxmox VE host with VMs provisioned (see [homelab-terraform](https://github.com/ArianDervishaj/homelab-infra) for automated provisioning)
+- Proxmox VE host with VMs provisioned via [homelab-terraform](https://github.com/ArianDervishaj/homelab-infra)
 - SSH key access to all VMs
 - Ansible Vault password for encrypted secrets
 
 ### Deploy
 ```bash
 # Deploy everything
-ansible-playbook playbooks/all.yml --ask-vault-pass
+ansible-playbook playbooks/all.yml
 
 # Deploy a single stack (e.g. monitoring)
-ansible-playbook playbooks/monitoring.yml --ask-vault-pass
+ansible-playbook playbooks/monitoring.yml
+
+# Run base setup on a specific host
+ansible-playbook playbooks/base.yml --limit streaming.homelab
 ```
