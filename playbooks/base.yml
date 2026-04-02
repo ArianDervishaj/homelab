@@ -13,8 +13,13 @@
     - ssh_hardening
 
 - name: Service VM Foundation
-  hosts: all:!router:!pihole
+  hosts: homelab
   become: true
   roles:
     - common_tools
     - docker
+  tasks:
+    - name: Set Hostname
+      ansible.builtin.hostname:
+        name: "{{ inventory_hostname }}"
+
