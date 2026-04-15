@@ -1,0 +1,9 @@
+---
+restic_backup_jobs:
+- name: calibre-web
+  paths:
+  - /opt/stacks/library/calibre-web/config
+- name: audiobookshelf
+  paths:
+  - /opt/stacks/library/audiobookshelf/config
+  - /opt/stacks/library/audiobookshelf/metadata

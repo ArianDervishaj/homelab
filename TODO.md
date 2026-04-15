@@ -18,3 +18,4 @@ WARN Not compatibly debian13 => deploy wazuh vm on debian12
 
 
 ## Done
+- [x] Deploy Restic for backups

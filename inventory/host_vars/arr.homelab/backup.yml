@@ -1,0 +1,14 @@
+---
+restic_backup_jobs:
+- name: radarr
+  paths:
+  - /opt/stacks/arr/radarr/config
+- name: sonarr
+  paths:
+  - /opt/stacks/arr/sonarr/config
+- name: prowlarr
+  paths:
+  - /opt/stacks/arr/prowlarr/config
+- name: bazarr
+  paths:
+  - /opt/stacks/arr/bazarr/config

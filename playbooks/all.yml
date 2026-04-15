@@ -28,3 +28,4 @@
 # noqa: name[play]
 - import_playbook: pihole.yml
 
+- import_playbook: backup.yml

@@ -1,0 +1,4 @@
+---
+nfs_backup_server: "192.168.1.119"
+nfs_backup_share_path: "/export/vm-backups"
+nfs_backup_mount_point: "/mnt/vm-backups"

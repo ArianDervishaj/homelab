@@ -1,0 +1,32 @@
+#!/bin/bash
+# Managed by Ansible - do not edit manually
+# Restic backup script for {{ inventory_hostname }}
+
+set -euo pipefail
+
+RESTIC="{{ restic_install_path }}"
+BACKUP_BASE="{{ restic_backup_base }}/{{ inventory_hostname }}"
+export RESTIC_PASSWORD="{{ restic_password }}"
+
+{% for job in restic_backup_jobs %}
+echo "[$(date)] Starting backup: {{ job.name }}"
+REPO="${BACKUP_BASE}/{{ job.name }}"
+
+# Init repo if it doesn't exist
+if ! $RESTIC -r "$REPO" snapshots &>/dev/null; then
+  echo "[$(date)] Initializing repo: $REPO"
+  $RESTIC -r "$REPO" init
+fi
+
+# Backup
+$RESTIC -r "$REPO" backup {% for path in job.paths %}{{ path }} {% endfor %}
+
+# Forget + prune
+$RESTIC -r "$REPO" forget \
+  --keep-last {{ restic_keep_last }} \
+  --keep-monthly {{ restic_keep_monthly }} \
+  --prune
+
+echo "[$(date)] Done: {{ job.name }}"
+
+{% endfor %}

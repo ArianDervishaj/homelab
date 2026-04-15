@@ -1,0 +1,17 @@
+---
+restic_install_path: "/usr/bin/restic"
+
+restic_backup_base: "/mnt/vm-backups"
+restic_password: "{{ vault_restic_password }}"
+
+# Retention policy
+restic_keep_last: 3
+restic_keep_monthly: 3
+
+# Schedule: every 3 days at 1am
+restic_cron_minute: "0"
+restic_cron_hour: "1"
+restic_cron_day: "*/3"
+
+# Defined per host in host_vars
+restic_backup_jobs: []

@@ -1,0 +1,6 @@
+---
+restic_backup_jobs:
+- name: caddy
+  paths:
+  - /opt/stacks/proxy/caddy/data
+  - /opt/stacks/proxy/caddy/config

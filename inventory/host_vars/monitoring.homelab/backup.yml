@@ -1,0 +1,11 @@
+---
+restic_backup_jobs:
+- name: uptime-kuma
+  paths:
+  - /opt/stacks/monitoring/uptime-kuma
+- name: homepage
+  paths:
+  - /opt/stacks/monitoring/homepage
+- name: speedtest-tracker
+  paths:
+  - /opt/stacks/monitoring/speedtest-tracker

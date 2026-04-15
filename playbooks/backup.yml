@@ -1,0 +1,8 @@
+---
+- name: Deploy Restic Backup
+  hosts: homelab
+  become: true
+
+  roles:
+    - nfs_backup
+    - restic_backup
