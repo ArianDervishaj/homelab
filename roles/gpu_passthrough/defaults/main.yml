@@ -1,3 +1,4 @@
 ---
 gpu_passthrough_kernel_package: linux-image-amd64
-gpu_passthrough_cloud_kernel_package: linux-image-cloud-amd64
+gpu_passthrough_cloud_package_regex: '^linux-(image|headers)-.*cloud.*'
+gpu_passthrough_reboot_timeout: 300
