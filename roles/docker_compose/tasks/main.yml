@@ -20,13 +20,15 @@
 
 - name: Create data directories for services
   ansible.builtin.file:
-    path: "{{ docker_compose_stack_dir }}/{{ item.name }}"
+    path: "{{ item.split(':')[0] }}"
     state: directory
     owner: "{{ docker_compose_owner }}"
     group: "{{ docker_compose_group }}"
     mode: "0755"
-  loop: "{{ docker_compose_services }}"
-  when: item.volumes is defined
+  loop: "{{ docker_compose_services | map(attribute='volumes', default=[]) | flatten }}"
+  when:
+  - item.split(':')[0].startswith(docker_compose_stack_dir)
+  - not item.endswith(':ro')
 
 - name: Template docker-compose.yml
   ansible.builtin.template:
