@@ -3,7 +3,7 @@ docker_compose_stack_name: streaming
 
 docker_compose_services:
 - name: jellyfin
-  image: jellyfin/jellyfin:latest
+  image: jellyfin/jellyfin:latest  # TODO: pin, see note below
   container_name: jellyfin
   devices:
   - /dev/dri:/dev/dri
@@ -18,8 +18,9 @@ docker_compose_services:
     TZ: "{{ timezone }}"
 
 - name: jellyseerr
-  image: ghcr.io/seerr-team/seerr:latest 
+  image: ghcr.io/seerr-team/seerr:latest
   container_name: jellyseerr
+  init: true
   ports:
   - "5055:5055"
   volumes:
@@ -36,3 +37,5 @@ docker_compose_services:
   volumes:
   - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/cloudflared/config.yml:/etc/cloudflared/config.yml:ro"
   - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/cloudflared/credentials.json:/etc/cloudflared/credentials.json:ro"
+  environment:
+    TZ: "{{ timezone }}"

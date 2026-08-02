@@ -36,4 +36,5 @@ docker_compose_services:
     PGID: "{{ docker_gid }}"
     WEBUI_PORT: "8081"
   depends_on:
-  - gluetun
+    gluetun:
+      condition: service_healthy

@@ -11,6 +11,9 @@ services:
 {% else %}
     restart: unless-stopped
 {% endif %}
+{% if service.init | default(false) %}
+    init: true
+{% endif %}
 {% if service.command is defined %}
     command: {{ service.command }}
 {% endif %}
@@ -49,9 +52,16 @@ services:
 {% endif %}
 {% if service.depends_on is defined %}
     depends_on:
+{% if service.depends_on is mapping %}
+{% for dep, opts in service.depends_on.items() %}
+      {{ dep }}:
+        condition: {{ opts.condition }}
+{% endfor %}
+{% else %}
 {% for dep in service.depends_on %}
       - {{ dep }}
 {% endfor %}
+{% endif %}
 {% endif %}
 {% if service.networks is defined %}
     networks:
