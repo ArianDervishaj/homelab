@@ -1,0 +1,5 @@
+---
+firewall_rules:
+- port: 8080
+  source: "{{ network_netbird }}"
+  comment: "Gatus dashboard from Netbird"

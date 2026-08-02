@@ -1,0 +1,17 @@
+---
+- name: Ensure Gatus config directory exists
+  ansible.builtin.file:
+    path: "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/gatus/config"
+    state: directory
+    owner: "{{ docker_compose_owner }}"
+    group: "{{ docker_compose_group }}"
+    mode: "0755"
+
+- name: Deploy Gatus config
+  ansible.builtin.template:
+    src: config.yaml.j2
+    dest: "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/gatus/config/config.yaml"
+    owner: "{{ docker_compose_owner }}"
+    group: "{{ docker_compose_group }}"
+    mode: "0644"
+  notify: Restart docker compose stack

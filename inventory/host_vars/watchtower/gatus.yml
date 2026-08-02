@@ -1,0 +1,117 @@
+---
+gatus_endpoints:
+
+# ── Infrastructure ─────────────────────────────────
+- name: Proxmox
+  group: Infrastructure
+  url: "icmp://100.86.117.200"
+  priority: 5
+  conditions: ["[CONNECTED] == true"]
+- name: Router VM
+  group: Infrastructure
+  url: "icmp://100.86.220.54"
+  priority: 5
+  conditions: ["[CONNECTED] == true"]
+- name: Pi-hole
+  group: Infrastructure
+  url: "icmp://192.168.1.225"
+  priority: 4
+  conditions: ["[CONNECTED] == true"]
+- name: Proxy VM
+  group: Infrastructure
+  url: "icmp://192.168.100.10"
+  priority: 4
+  conditions: ["[CONNECTED] == true"]
+
+# ── Virtual Machines ───────────────────────────────
+- name: Streaming
+  group: Virtual Machines
+  url: "icmp://192.168.100.11"
+  conditions: ["[CONNECTED] == true"]
+- name: Arr
+  group: Virtual Machines
+  url: "icmp://192.168.100.12"
+  conditions: ["[CONNECTED] == true"]
+- name: Downloader
+  group: Virtual Machines
+  url: "icmp://192.168.100.13"
+  conditions: ["[CONNECTED] == true"]
+- name: Monitoring
+  group: Virtual Machines
+  url: "icmp://192.168.100.14"
+  conditions: ["[CONNECTED] == true"]
+- name: Library
+  group: Virtual Machines
+  url: "icmp://192.168.100.15"
+  conditions: ["[CONNECTED] == true"]
+
+# ── Media ──────────────────────────────────────────
+- name: Jellyfin
+  group: Media
+  url: "http://192.168.100.11:8096/health"
+  priority: 4
+  conditions: ["[STATUS] == 200", "[BODY] == Healthy"]
+- name: Jellyseerr
+  group: Media
+  url: "http://192.168.100.11:5055"
+  conditions: ["[STATUS] >= 200", "[STATUS] < 400"]
+- name: Radarr
+  group: Media
+  url: "http://192.168.100.12:7878"
+  conditions: ["[STATUS] >= 200", "[STATUS] < 400"]
+- name: Sonarr
+  group: Media
+  url: "http://192.168.100.12:8989"
+  conditions: ["[STATUS] >= 200", "[STATUS] < 400"]
+- name: Prowlarr
+  group: Media
+  url: "http://192.168.100.12:9696"
+  conditions: ["[STATUS] >= 200", "[STATUS] < 400"]
+- name: Bazarr
+  group: Media
+  url: "http://192.168.100.12:6767"
+  priority: 2
+  conditions: ["[STATUS] >= 200", "[STATUS] < 400"]
+- name: qBittorrent
+  group: Media
+  url: "http://192.168.100.13:8081"
+  conditions: ["[STATUS] >= 200", "[STATUS] < 400"]
+
+# ── Library ────────────────────────────────────────
+- name: Calibre-Web
+  group: Library
+  url: "http://192.168.100.15:8083"
+  conditions: ["[STATUS] >= 200", "[STATUS] < 400"]
+- name: Audiobookshelf
+  group: Library
+  url: "http://192.168.100.15:13378"
+  conditions: ["[STATUS] >= 200", "[STATUS] < 400"]
+
+# ── Monitoring ─────────────────────────────────────
+- name: Homepage
+  group: Monitoring
+  url: "http://192.168.100.14:3000"
+  priority: 2
+  conditions: ["[STATUS] >= 200", "[STATUS] < 400"]
+- name: Uptime Kuma
+  group: Monitoring
+  url: "http://192.168.100.14:3001"
+  priority: 2
+  conditions: ["[STATUS] >= 200", "[STATUS] < 400"]
+- name: Speedtest Tracker
+  group: Monitoring
+  url: "http://192.168.100.14:8765"
+  priority: 2
+  conditions: ["[STATUS] >= 200", "[STATUS] < 400"]
+
+  # ── External (Cloudflare Tunnel) ───────────────────
+- name: Jellyfin (external)
+  group: External
+  url: "https://media.nuggetscloud.com/health"
+  priority: 5
+  conditions: ["[STATUS] == 200", "[BODY] == Healthy"]
+- name: Seerr (external)
+  group: External
+  url: "https://requests.nuggetscloud.com/api/v1/status"
+  priority: 5
+  conditions: ["[STATUS] == 200", "[BODY].version != "]

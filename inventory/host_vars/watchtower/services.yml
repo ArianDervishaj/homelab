@@ -1,0 +1,16 @@
+---
+docker_compose_stack_name: watchtower
+
+docker_compose_services:
+- name: gatus
+  image: twinproduction/gatus:v5.28.0
+  container_name: gatus
+  cap_add:
+  - NET_RAW
+  ports:
+  - "8080:8080"
+  volumes:
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/gatus/config/config.yaml:/config/config.yaml:ro"
+  - "{{ docker_compose_base_dir }}/{{ docker_compose_stack_name }}/gatus/data:/data"
+  environment:
+    TZ: "{{ timezone }}"

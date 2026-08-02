@@ -13,7 +13,7 @@
     - ssh_hardening
 
 - name: Service VM Foundation
-  hosts: homelab
+  hosts: docker_hosts
   become: true
   roles:
     - common_tools

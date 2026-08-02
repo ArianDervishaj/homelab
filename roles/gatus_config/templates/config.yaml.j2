@@ -1,0 +1,31 @@
+# {{ ansible_managed }}
+storage:
+  type: sqlite
+  path: /data/data.db
+
+alerting:
+  discord:
+    webhook-url: "{{ vault_discord_webhook_url }}"
+    default-alert:
+      failure-threshold: 3
+      success-threshold: 2
+      send-on-resolved: true
+
+endpoints:
+{% for endpoint in gatus_endpoints %}
+  - name: {{ endpoint.name }}
+    group: {{ endpoint.group }}
+    url: "{{ endpoint.url }}"
+    interval: {{ endpoint.interval | default('60s') }}
+    client:
+      timeout: {{ endpoint.timeout | default('5s') }}
+    conditions:
+{% for condition in endpoint.conditions %}
+      - "{{ condition }}"
+{% endfor %}
+    alerts:
+      - type: discord
+{% if endpoint.failure_threshold is defined %}
+        failure-threshold: {{ endpoint.failure_threshold }}
+{% endif %}
+{% endfor %}

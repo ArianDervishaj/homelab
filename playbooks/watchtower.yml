@@ -1,0 +1,15 @@
+---
+- name: Deploy Watchtower Stack
+  hosts: external
+  become: true
+
+  pre_tasks:
+    - name: Ensure Docker is running
+      ansible.builtin.systemd:
+        name: docker
+        state: started
+        enabled: true
+
+  roles:
+    - gatus_config
+    - docker_compose
