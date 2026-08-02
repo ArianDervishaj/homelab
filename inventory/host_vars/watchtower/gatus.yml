@@ -114,4 +114,4 @@ gatus_endpoints:
   group: External
   url: "https://requests.nuggetscloud.com/api/v1/status"
   priority: 5
-  conditions: ["[STATUS] == 200", "[BODY].version != "]
+  conditions: ["[STATUS] == 200", "has([BODY].version) == true"]
